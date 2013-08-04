@@ -61,6 +61,7 @@ sub init_registry
                 'MailPreviewExtParam' => \&mail_preview_ext_param,
                 'MailFormAjaxJS' => \&mail_form_ajax_js,
                 'IncludeMailFormCommon' => \&include_mail_form_common,
+                'MailFormPluginVersion' => \&mail_form_plugin_version,
             },
             block => {
                 'MailPreviewIfError?' => \&mail_preview_if_error,
@@ -531,6 +532,12 @@ sub mf_blog_config_template {
         ><__trans phrase="Install"></button>
 </mtapp:setting>
 HERE
+}
+
+sub mail_form_plugin_version {
+    my ($ctx, $args) = @_;
+    mu $plugin = MT->component('mailform');
+    return $plugin->{version};
 }
 
 # upgrade function from 2.0 (schema version 1.0) to 2.1 (schema version 1.01)
