@@ -13,6 +13,8 @@
 # 2010/03/21 2.20 For Movable Type 5
 # 2011/05/12 2.30b1 For Movable Type 5.1
 # 2012/07/25 2.30 For Movable Type 5.2
+# 2013/08/04 2.32 Added eigar theme
+#
 # Copyright(c) by H.Fujimoto
 #
 package MT::Plugin::MailForm;
