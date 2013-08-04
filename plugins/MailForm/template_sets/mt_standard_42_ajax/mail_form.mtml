@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard">
+<head>
+    <$mt:include module="HTMLヘッダー"$>
+    <title><$MTBlogName encode_html="1"$> : メールフォーム</title>
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="<$MTLink template="rsd"$>" />
+    <script type="text/javascript" src="<$MTLink template="javascript"$>"></script>
+</head>
+<body id="<$mt:BlogTemplateSetID$>" class="mt-main-index <$MTVar name="page_layout"$>">
+    <div id="container">
+        <div id="container-inner">
+
+
+            <$mt:include module="バナーヘッダー"$>
+
+
+            <div id="content">
+                <div id="content-inner">
+
+
+                    <div id="alpha">
+                        <div id="alpha-inner">
+<$MTMailFormAjaxJS$>
+                            <div id="ajax_mail">
+                                <h2 class="comments-open-header">メールの送信</h2>
+                                <$MTIncludeMailFormCommon$>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <$MTInclude module="サイドバー"$>
+
+
+                </div>
+            </div>
+
+
+            <$mt:include module="バナーフッター"$>
+
+
+        </div>
+    </div>
+</body>
+</html>

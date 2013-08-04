@@ -1,0 +1,89 @@
+<mt:setvarblock name="page_title"><__trans phrase="Install sample template"></mt:setvarblock>
+
+<mt:setvarblock name="related_content">
+    <mtapp:widget
+        id="useful-links"
+        label="<__trans phrase="Useful links">">
+        <ul>
+            <li><a href="<mt:var name="script_url">?__mode=fjmf_do_setting&amp;blog_id=<mt:var name="blog_id">"><__trans phrase="Create Mail Form"></a></li>
+            <li><a href="<mt:var name="script_url">?__mode=list&amp;_type=mailform_setting&amp;blog_id=<mt:var name="blog_id">"><__trans phrase="Manage Mail Form"></a></li>
+        </ul>
+    </mtapp:widget>
+</mt:setvarblock>
+
+<mt:include name="include/header.tmpl">
+
+<mt:if name="is_exist_error">
+<mtapp:statusmsg
+  id="error"
+  class="error">
+<__trans phrase="Template(s) as below already exist.<br />Please rename.">
+<ul>
+<mt:loop name="exist_tmpls">
+<li><mt:var name="tmpl_name"></li>
+</mt:loop>
+</ul>
+</mtapp:statusmsg>
+</mt:if>
+
+<mt:if name="is_noname_error">
+<mtapp:statusmsg
+  id="error"
+  class="error">
+<__trans phrase="Name of template(s) as below are not specified. <br />Please specify name of template.">
+<ul>
+<mt:loop name="noname_tmpls">
+<li><mt:var name="tmpl_name"></li>
+</mt:loop>
+</ul>
+</mtapp:statusmsg>
+</mt:if>
+
+<mt:if name="is_load_error">
+<mtapp:statusmsg
+  id="error"
+  class="error">
+<__trans phrase="Template(s) as below load error.">
+<ul>
+<mt:loop name="load_error_tmpls">
+<li><mt:var name="tmpl_name"></li>
+</mt:loop>
+</ul>
+</mtapp:statusmsg>
+</mt:if>
+
+<mt:if name="is_create_error">
+<mtapp:statusmsg
+  id="error"
+  class="error">
+<__trans phrase="Template(s) as below save error.">
+<ul>
+<mt:loop name="create_error_tmpls">
+<li><mt:var name="tmpl_name"></li>
+</mt:loop>
+</ul>
+</mtapp:statusmsg>
+</mt:if>
+
+<mt:if name="is_created">
+<mtapp:statusmsg
+  id="success"
+  class="success">
+<__trans phrase="Template(s) as below are created.">
+<ul>
+<mt:loop name="created_tmpls">
+<li><mt:var name="tmpl_name"></li>
+</mt:loop>
+</ul>
+</mtapp:statusmsg>
+</mt:if>
+
+<p>
+<mt:if name="is_redo">
+<a href="<mt:var name="script_url">?__mode=fjmf_install_template_setup&amp;blog_id=<mt:var name="blog_id">" onclick="history.back(); return false;"><__trans phrase="Back to setting"></a>
+<mt:else>
+<a href="<mt:var name="script_url">?__mode=fjmf_install_template_setup&amp;blog_id=<mt:var name="blog_id">"><__trans phrase="Install Other Sample Mail Form Template"></a>
+</mt:if>
+</p>
+
+<mt:include name="include/footer.tmpl">

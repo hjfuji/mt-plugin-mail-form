@@ -1,0 +1,40 @@
+<$mt:setvar name="screen_type" value="dialog-screen insert-tag"$>
+<$mt:setvar name="page_title" value="<__trans phrase="Insert MTSetVar tag">"$>
+<$mt:include name="dialog/header.tmpl"$>
+
+<div>
+<mt:if name="inserted">
+<__trans phrase="MTSetVar tag was inserted as below. Please check that tag below is correctly inserted to template.">
+</mt:if>
+<mt:if name="modified">
+<__trans phrase="MTSetVar tag was modified as below. Please check that tag below is correctly inserted to template.">
+</mt:if>
+<mt:if name="not_changed">
+<mt:if name="error">
+<__trans phrase="Load template error">
+<mt:else>
+<__trans phrase="Proper MTSetVar tag already exists, so template is not modified.">
+</mt:if>
+<mt:else>
+<br />
+<br />
+<__trans phrase="Required MTSetVar tag"><br />
+<input type="text" size="80" style="width : 600px;" value="<mt:var name="required_tag">" /><br />
+<br />
+<__trans phrase="Modified template"><br />
+<textarea rows="10" cols="80" style="width : 600px; height ; 300px;"><mt:var name="tmpl"></textarea></mt:if>
+</div>
+</mt:if>
+
+<div class="actions-bar">
+    <div class="actions-bar-inner pkg actions">
+        <button
+            type="submit"
+            accesskey="x"
+            class="cancel action mt-close-dialog"
+            title="<__trans phrase="Close (x)">"
+            ><__trans phrase="Close"></button>
+    </div>
+</div>
+
+<mt:include name="dialog/footer.tmpl">

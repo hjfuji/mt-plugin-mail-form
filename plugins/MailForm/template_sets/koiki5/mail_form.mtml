@@ -1,0 +1,50 @@
+<mt:unless name="page_layout" like="column">
+  <mt:setvar name="page_layout" value="layout-three-column" />
+</mt:unless>
+<mt:setVar name="main_template" value="1" />
+<mt:setVarBlock name="page_title">メールフォーム</mt:setVarBlock>
+<mt:include module="ヘッダー" />
+
+<div id="content">
+<div class="blog">
+
+<h2 class="comments-open-header">メールの送信</h2>
+<$MTIncludeMailFormCommon$>
+
+</div>
+</div>
+
+<mt:if name="page_layout" like="layout-three-column-right|layout-three-column-liquid-right">
+<mt:else>
+  <mt:if name="page_layout" like="three|left">
+<div id="links-left-box">
+  <dl id="links-left">
+<mt:include module="サイドバー2" />
+    <mt:if name="page_layout" like="two">
+<mt:include module="サイドバー" />
+    </mt:if>
+  </dl>
+</div>
+  </mt:if>
+</mt:if>
+
+<mt:if name="page_layout" like="layout-three-column-right|layout-three-column-liquid-right">
+<div id="links-left-box">
+  <dl id="links-left">
+<mt:include module="サイドバー2" />
+  </dl>
+</div>
+</mt:if>
+
+<mt:if name="page_layout" like="three|right">
+<div id="links-right-box">
+  <dl id="links-right">
+  <mt:if name="page_layout" like="two">
+<mt:include module="サイドバー2" />
+  </mt:if>
+<mt:include module="サイドバー" />
+  </dl>
+</div>
+</mt:if>
+
+<mt:include module="フッター" />

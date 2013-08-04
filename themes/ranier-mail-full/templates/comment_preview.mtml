@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="<$mt:PublishCharset$>">
+    <meta name="generator" content="<$mt:ProductName version="1"$>">
+    <title>コメントのプレビュー - <$mt:BlogName encode_html="1"$></title>
+    <$mt:Include module="HTMLヘッダー"$>
+    <script type="text/javascript">
+      var user = <$mt:UserSessionState$>;
+      var is_preview = true;
+    </script>
+    <script src="<$mt:Link template="javascript"$>"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="container-inner">
+        <header id="header" role="banner">
+          <div id="header-inner">
+            <$mt:Include module="バナーヘッダー"$>
+            <$mt:Include module="ナビゲーション"$>
+          </div>
+        </header>
+        <div id="content">
+          <div id="content-inner">
+            <ul class="breadcrumb breadcrumb-list">
+              <li class="breadcrumb-list-item"><a href="<$mt:BlogURL encode_html="1"$>">ホーム</a></li>
+              <li class="breadcrumb-list-item"><$mt:EntryTitle$></li>
+            </ul>
+            <div id="comment-preview-main" class="main" role="main">
+              <section>
+                <h2 class="title">コメントのプレビュー</h2>
+                <article id="comment-<$mt:CommentID$>" class="comment<mt:IfCommentParent> comment-reply</mt:IfCommentParent><mt:IfCommenterIsEntryAuthor> entry-author-comment</mt:IfCommenterIsEntryAuthor>">
+                  <header>
+                    <h3><mt:IfCommentParent><$mt:CommentAuthorLink$>から<a href="<mt:CommentParent><$mt:CommentLink$></mt:CommentParent>"><mt:CommentParent><$mt:CommentAuthor$></mt:CommentParent></a>への返信<mt:Else><$mt:CommentAuthorLink$></mt:IfCommentParent></h3>
+                    <a href="<$mt:CommentLink$>"><time datetime="<$mt:CommentDate format_name="iso8601"$>"><$mt:CommentDate$></time></a>
+                  </header>
+                  <$mt:CommentBody$>
+                </article>
+                <$mt:Include module="コメント入力フォーム"$>
+              </section>
+            </div>
+            <aside class="widgets related" role="complementary">
+              <$mt:WidgetSet name="関連コンテンツ"$>
+            </aside>
+          </div>
+        </div>
+        <footer id="footer" role="contentinfo">
+          <div id="footer-inner">
+            <$mt:Include module="バナーフッター"$>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <script src="<$mt:StaticWebPath encode_html="1"$>jquery/jquery.min.js"></script>
+    <script src="<$mt:Link template="javascript_theme" encode_html="1">"></script>
+  </body>
+</html>

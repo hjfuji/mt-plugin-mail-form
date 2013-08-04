@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard">
+<head>
+    <$mt:include module="HTMLヘッダー"$>
+    <title><$MTBlogName encode_html="1"$> : メールフォーム : メールの確認</title>
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="<$MTLink template="rsd"$>" />
+    <script type="text/javascript" src="<$MTLink template="javascript"$>"></script>
+</head>
+<body id="<$mt:BlogTemplateSetID$>" class="mt-main-index <$MTVar name="page_layout"$>">
+    <div id="container">
+        <div id="container-inner">
+
+
+            <$mt:include module="バナーヘッダー"$>
+
+
+            <div id="content">
+                <div id="content-inner">
+
+
+                    <div id="alpha">
+                        <div id="alpha-inner">
+    <h2 class="comments-open-header">メールの確認</h2>
+    <div class="comments-open-content">
+        <p>以下の内容でメールを送信します。<br />内容を修正する場合は、この後にあるメールフォームで修正してください。</p>
+        <table border="1" style="width : 90%;">
+        <tr><td colspan="2">お名前</td><td><$MTMailPreviewAuthor$></td></tr>
+        <tr><td colspan="2">メールアドレス</td><td><$MTMailPreviewEMail$></td></tr>
+        <tr><td colspan="2">概要</td><td><$MTMailPreviewExtParam name="mail_description"$></td></tr>
+        <tr><td colspan="2">題名</td><td><$MTMailPreviewSubject$></td></tr>
+        <tr><td colspan="2">性別</td><td><$MTMailPreviewExtParam name="mail_sex"$></td></tr>
+        <tr><td rowspan="4">弊社をどこでお知りになりましたか</td><td>テレビ</td><td><$MTMailPreviewExtParam name="mail_tv"$></td></tr>
+        <tr><td>インターネット</td><td><$MTMailPreviewExtParam name="mail_internet"$></td></tr>
+        <tr><td>友人・知人の紹介</td><td><$MTMailPreviewExtParam name="mail_friends"$></td></tr>
+        <tr><td>その他</td><td><$MTMailPreviewExtParam name="mail_others"$><br /><$MTMailPreviewExtParam name="mail_others2"$></td></tr>
+        <tr><td colspan="2">本文</td><td><$MTMailPreviewBody convert_breaks="1"$></td></tr>
+        </table>
+    </div>
+    <h2 class="comments-open-header">メールフォーム</h2>
+<$MTIncludeMailFormCommon$>
+                        </div>
+                    </div>
+
+
+                    <$MTInclude module="サイドバー"$>
+
+
+                </div>
+            </div>
+
+
+            <$mt:include module="バナーフッター"$>
+
+
+        </div>
+    </div>
+</body>
+</html>

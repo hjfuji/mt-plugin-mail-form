@@ -1,0 +1,47 @@
+<mt:unless name="page_layout" like="column"><mt:setvar name="page_layout" value="layout-three-column"></mt:unless><MTSetVar name="body_class" value="mt-main-index"><MTSetVar name="main_template" value="1"><MTSetVar name="main_index" value="1"><MTSetVar name="sidebar" value="1"><MTSetVar name="module_recent_entries" value="1"><MTSetVar name="module_category_archives" value="1"><MTSetVar name="module_author_archives" value="1"><MTSetVar name="module_monthly_archives" value="1"><MTSetVarBlock name="page_title">メールフォーム</MTSetVarBlock><$MTInclude module="ヘッダー"$>
+
+<mt:if name="page_layout" like="three|left">
+<div id="links-left-box">
+<dl id="links-left">
+<$MTInclude module="サイドバー2"$>
+<mt:if name="page_layout" like="two">
+<$MTInclude module="サイドバー"$>
+</mt:if>
+</dl>
+</div>
+</mt:if>
+
+<div id="content">
+<div class="blog">
+
+<$MTMailFormAjaxJS$>
+
+<div id="ajax_mail" class="blog">
+
+<h2 class="comments-open-header">メールの送信</h2>
+<$MTIncludeMailFormCommon$>
+
+</div>
+
+</div>
+
+<mt:if name="page_layout" like="two.*liquid.*|three.*liquid.*">
+<p id="footer">Copyright &copy; 2008 <$MTBlogName encode_html="1"$> All Rights Reserved.</p>
+</mt:if>
+
+</div>
+
+<mt:if name="page_layout" like="three|right">
+<div id="links-right-box">
+<dl id="links-right">
+<mt:if name="page_layout" like="two">
+<$MTInclude module="サイドバー2"$>
+</mt:if>
+<$MTInclude module="サイドバー"$>
+</dl>
+</div>
+</mt:if>
+
+<mt:unless name="page_layout" like="two.*liquid.*|three.*liquid.*">
+<$MTInclude module="フッター"$>
+</mt:unless>

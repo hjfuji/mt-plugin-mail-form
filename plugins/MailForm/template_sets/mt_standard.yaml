@@ -1,0 +1,20 @@
+order: 1
+sets:
+  - name: Movable Type 5クラシックテーマ用
+    dir: mt_standard_42
+  - name: Movable Type 5クラシックテーマ用（Ajax）
+    dir: mt_standard_42_ajax
+  - name: Movable Type 5クラシックテーマ用（各種機能使用）
+    dir: mt_standard_42_full
+  - name: Movable Type 5プロフェッショナル/コミュニティ系テーマ用
+    dir: mt_standard
+  - name: Movable Type 5プロフェッショナル/コミュニティ系テーマ用（Ajax）
+    dir: mt_standard_ajax
+  - name: Movable Type 5プロフェッショナル/コミュニティ系テーマ用（各種機能使用）
+    dir: mt_standard_full
+  - name: Movable Type 5.2 Rainierテーマ用
+    dir: rainier
+  - name: Movable Type 5.2 Rainierテーマ用（Ajax）
+    dir: rainier_ajax
+  - name: Movable Type 5.2 Rainierテーマ用（各種機能使用）
+    dir: rainier_full

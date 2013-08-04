@@ -1,0 +1,29 @@
+<div class="comments-open-content">
+    <form method="post" action="<$MTCGIPath$>plugins/MailForm/mt-mail-form.cgi" name="mail_form" id="mail_form">
+        <p id="mail-form-author">
+            <label for="mail_author">名前</label><br />
+            <input id="mail_author" name="mail_author" size="30" value="<$MTMailPreviewAuthor$>" style="width : 90%;" />
+        </p>
+        <p id="mail-form-email">
+            <label for="mail_email">メールアドレス</label><br />
+            <input id="mail_email" name="mail_email" size="30" value="<$MTMailPreviewEMail$>" style="width : 90%;" />
+        </p>
+        <p id="mail-form-subject">
+            <label for="mail_subject">タイトル</label><br />
+            <input id="mail_subject" name="mail_subject" size="30" value="<$MTMailPreviewSubject$>" style="width : 90%;" />
+        </p>
+        <p id="mail-form-text">
+            <label for="mail_text">本文</label><br />
+            <textarea id="mail_text" name="mail_text" rows="15" cols="50" style="width : 90%;"><$MTMailPreviewBody$></textarea>
+        </p>
+        <div id="comments-open-footer">
+        <p id="mail-form-footer">
+            <input type="hidden" name="mail_blog_id" value="<$MTBlogID$>" />
+            <input type="hidden" name="mail_setting" value="<$MTGetVar name="mail_setting">" />
+            <input type="button" accesskey="v" name="mail_preview" id="mail_preview" value="確認" class="primary button" onclick="return FJAjaxMail.send('preview');" />
+            <input type="button" accesskey="s" name="mail_post" id="mail_post" value="送信" class="button" onclick="return FJAjaxMail.send('post');" />
+        </p>
+        </div>
+    </form>
+    <p><a href="http://www.h-fj.com/blog/mtplgdoc/mailformv2_2.php">Powered by メールフォームプラグイン V2.30</a><br />Copyright &copy; by <a href="http://www.h-fj.com/blog/">H.Fujimoto</a></p>
+</div>

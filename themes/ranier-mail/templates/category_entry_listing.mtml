@@ -1,0 +1,66 @@
+<$mt:Var name="entries_per_page" value="10"$>
+
+<mt:SetVarBlock name="search_link">
+    <$mt:CGIPath$><$mt:SearchScript$>?IncludeBlogs=<$mt:BlogID$>
+    &template_id=<$mt:BuildTemplateID$>
+    &limit=<$mt:Var name="entries_per_page"$>
+    &archive_type=<$mt:ArchiveType$>
+    &category=<$mt:CategoryID$>
+    &page=
+</mt:SetVarBlock>
+
+<$mt:Var name="search_link" strip="" trim="1" encode_html="1" setvar="search_link"$>
+
+<!DOCTYPE html>
+<html lang="<$mt:BlogLanguage$>">
+  <head>
+    <meta charset="<$mt:PublishCharset$>">
+    <title><$mt:ArchiveTitle encode_html="1"$>アーカイブ - <$mt:BlogName encode_html="1"$></title>
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="<$mt:Link template="feed_recent" encode_html="1"$>">
+    <$mt:Include module="HTMLヘッダー"$>
+  </head>
+  <body>
+    <div id="container">
+      <div id="container-inner">
+        <header id="header" role="banner">
+          <div id="header-inner">
+            <$mt:Include module="バナーヘッダー"$>
+            <$mt:Include module="ナビゲーション"$>
+          </div>
+        </header>
+        <div id="content">
+          <div id="content-inner">
+            <ul class="breadcrumb breadcrumb-list">
+              <li class="breadcrumb-list-item"><a href="<$mt:BlogURL template="main_index" encode_html="1"$>">ホーム</a></li>
+              <li class="breadcrumb-list-item"><$mt:ArchiveTitle$>アーカイブ</li>
+            </ul>
+            <div id="category-main" class="main" role="main">
+              <section id="posts">
+                <h2><$mt:ArchiveTitle$>アーカイブ</h2>
+                <ol>
+<mt:Entries limit="$entries_per_page" search_results="1">
+                  <li>
+                    <time datetime="<$mt:EntryDate format_name="iso8601"$>"><$mt:EntryDate format="%x"$></time>
+                    <a href="<$mt:EntryPermalink encode_html="1"$>"><$mt:EntryTitle$></a>
+                  </li>
+</mt:Entries>
+                </ol>
+              </section>
+              <$mt:Include module="ページネーション"$>
+            </div>
+            <aside class="widgets related" role="complementary">
+              <$mt:WidgetSet name="関連コンテンツ"$>
+            </aside>
+          </div>
+        </div>
+        <footer id="footer" role="contentinfo">
+          <div id="footer-inner">
+            <$mt:Include module="バナーフッター"$>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <script src="<$mt:StaticWebPath encode_html="1"$>jquery/jquery.min.js"></script>
+    <script src="<$mt:Link template="javascript_theme" encode_html="1">"></script>
+  </body>
+</html>

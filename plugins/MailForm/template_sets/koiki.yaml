@@ -1,0 +1,6 @@
+order: 2
+sets:
+  - name: 小粋空間テンプレート用（MT5用テーマ対応）
+    dir: koiki5
+  - name: 小粋空間テンプレート用（MT5用テーマ対応・Ajax対応）
+    dir: koiki5_ajax

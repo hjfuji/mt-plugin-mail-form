@@ -1,0 +1,14 @@
+<mt:IfPingsActive>
+<aside id="trackbacks" class="trackbacks feedback">
+  <h2><$mt:EntryTrackbackCount singular="トラックバック" plural="トラックバック" none="トラックバック"$></h2>
+  <mt:IfPingsAccepted>
+  <p id="trackback-url">トラックバックURL: <$mt:EntryTrackbackLink$></p>
+  </mt:IfPingsAccepted>
+  <mt:Pings>
+  <div id="ping-<$mt:PingID$>" class="trackback">
+    <div class="info"><a href="<$mt:PingURL encode_html="1"$>"><$mt:PingTitle$></a> - <$mt:PingBlogName$></a> <time datetime="<$mt:PingDate format_name="iso8601"$>"><$mt:PingDate$></time></div>
+    <p><$mt:PingExcerpt$></p>
+  </div>
+  </mt:Pings>
+</aside>
+</mt:IfPingsActive>

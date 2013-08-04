@@ -1,0 +1,187 @@
+---
+id: ranier-mail-ajax
+label: Rainier(Ajaxメールフォーム)
+name: Rainier(Ajaxメールフォーム)
+version: 1.0
+author_link: 'http://www.h-fj.com/blog/'
+author_name: '藤本　壱'
+class: blog
+description: Rainier(Ajaxメールフォーム入り)
+thumbnail_file: 'thumb.png'
+thumbnail_file_medium: 'thumb-medium.png'
+thumbnail_file_small: 'thumb-small.png'
+required_components: 
+  mailform: 2.20
+elements:
+  default_prefs:
+    component: 'core'
+    importer: 'default_prefs'
+    data:
+      allow_pings: 0
+      allow_pings_default: 0
+      content_css: '{{theme_static}}css/editor.css'
+  default_pages:
+    component: 'core'
+    importer: 'default_pages'
+    name: 'Default Pages'
+    data:
+      about_page:
+        basename: 'index'
+        title: '<__trans phrase="About Page">'
+        text: '<__trans phrase="_ABOUT_PAGE_BODY">'
+        tags: '@ABOUT_PAGE'
+        folder: 'about'
+        status: 1
+      sample_page:
+        basename: 'sample'
+        title: '<__trans phrase="Example page">'
+        text: '<__trans phrase="_SAMPLE_PAGE_BODY">'
+        status: 1
+  template_set:
+    component: ~
+    importer: template_set
+    data:
+      base_path: templates
+      base_css: 'css/base.css'
+      stylecatcher_libraries:
+        rainier:
+          url: '{{support}}theme_static/rainier-mail-ajax/css/rainier.html'
+          label: 'Styles for Rainier'
+          description_label: 'A collection of styles compatible with Rainier themes.'
+          order: 1
+          class: Local
+      label: 'exported_template set'
+      templates:
+        archive:
+          category_entry_listing:
+            label: カテゴリ別ブログ記事リスト
+            mappings:
+              category:
+                archive_type: Category
+                preferred: 1
+          monthly_entry_listing:
+            label: 月別ブログ記事リスト
+            mappings:
+              monthly:
+                archive_type: Monthly
+                preferred: 1
+        index:
+          feed_recent:
+            label: 最新記事のフィード
+            outfile: atom.xml
+            rebuild_me: 1
+          javascript:
+            label: JavaScript
+            outfile: mt.js
+            rebuild_me: 1
+          javascript_theme:
+            label: 'JavaScript - テーマ'
+            outfile: mt-theme-scale2.js
+            rebuild_me: 1
+          main_index:
+            label: メインページ
+            outfile: index.html
+            rebuild_me: 1
+          styles:
+            label: スタイルシート
+            outfile: styles.css
+            rebuild_me: 1
+          styles_ie:
+            label: 'スタイルシート (IE8 以下用)'
+            outfile: styles_ie.css
+            rebuild_me: 1
+          mail_form:
+            label: mail_form:メールフォーム
+            outfile: mailform.html
+            rebuild_me: 1
+        individual:
+          entry:
+            label: ブログ記事
+            mappings:
+              individual:
+                archive_type: Individual
+                preferred: 1
+        module:
+          banner_footer:
+            label: バナーフッター
+          banner_header:
+            label: バナーヘッダー
+          comment_detail:
+            label: コメント詳細
+          comment_form:
+            label: コメント入力フォーム
+          comments:
+            label: コメント
+          entry_summary:
+            label: ブログ記事の概要
+          html_head:
+            label: HTMLヘッダー
+          navigation:
+            label: ナビゲーション
+          pagination:
+            label: ページネーション
+          trackbacks:
+            label: トラックバック
+          zenback:
+            label: Zenback
+          mail_common:
+            label: mail_common:メールフォーム共通部分
+          mail_preview:
+            label: mail_preview:送信確認
+          mail_error:
+            label: mail_error:送信エラー
+          mail_post:
+            label: mail_post:送信完了
+          mail_body:
+            label: mail_body:メール本文
+          mail_reply:
+            label: mail_reply:返信メール
+        page:
+          page:
+            label: ウェブページ
+            mappings:
+              page:
+                archive_type: Page
+                file_template: '%-c/%-f'
+                preferred: 1
+        system:
+          comment_preview:
+            label: コメントプレビュー
+          comment_response:
+            label: コメント完了
+          dynamic_error:
+            label: ダイナミックパブリッシングエラー
+          popup_image:
+            label: ポップアップ画像
+          search_results:
+            label: 検索結果
+        widget:
+          category_archive_list:
+            label: カテゴリアーカイブ
+          monthly_archive_dropdown:
+            label: 月別アーカイブ(ドロップダウン)
+          monthly_archive_list:
+            label: 月別アーカイブ
+          pages_list:
+            label: ページ一覧
+          recent_comments:
+            label: 最近のコメント
+          recent_entries:
+            label: 最近のブログ記事
+          search:
+            label: 検索
+          syndication:
+            label: 購読
+          tag_cloud:
+            label: タグクラウド
+        widgetset:
+          related_contents:
+            label: 関連コンテンツ
+            order: 1000
+            widgets:
+              - 検索
+              - カテゴリアーカイブ
+              - 月別アーカイブ(ドロップダウン)
+              - 最近のコメント
+              - タグクラウド
+              - 購読

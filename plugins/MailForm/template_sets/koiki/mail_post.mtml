@@ -1,0 +1,24 @@
+<MTSetVar name="body_class" value="mt-mail-form"><MTSetVar name="main_template" value="1"><MTSetVar name="page_title" value="メール送信完了"><MTSetVar name="sidebar" value="1"><MTSetVar name="module_recent_entries" value="1"><MTSetVar name="module_category_archives" value="1"><MTSetVar name="module_author_archives" value="1"><MTSetVar name="module_monthly_archives" value="1"><MTSetVar name="page_layout" value="layout-three-column"><$MTInclude module="ヘッダー"$>
+
+<$MTInclude module="サイドバー2"$>
+
+<div id="content">
+<div class="blog">
+
+<h2 class="comments-open-header">メール送信完了</h2>
+<div class="comments-open-content">
+<p><$MTMailPreviewAuthor$>様、メールを送信いただき、ありがとうございました。</p>
+</div>
+
+</div>
+
+<MTIgnore>### 1 column footer ###
+<div id="footer">
+<a href="http://www.koikikukan.com/"><img src="http://user-domain/images/koikikukan.gif" alt="小粋空間" width="128" height="22" /></a> 
+<a href="http://www.movabletype.jp"><img src="<$MTBlogURL$>mt-static/images/powered.gif" alt="Movable Type <$MTVersion$>" width="128" height="22" /></a>
+</div></MTIgnore>
+
+</div>
+
+<$MTInclude module="サイドバー"$>
+<$MTInclude module="フッター"$>

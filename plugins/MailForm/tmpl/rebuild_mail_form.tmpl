@@ -1,0 +1,26 @@
+<$mt:setvar name="screen_type" value="dialog-screen rebuild-template"$>
+<$mt:setvar name="page_title" value="<__trans phrase="Rebuild mail form template">"$>
+<$mt:include name="dialog/header.tmpl"$>
+
+<mt:if name="result">
+<mtapp:statusmsg id="success" class="success">
+<__trans phrase="Mail form template is rebuilt.">
+</mtapp:statusmsg>
+<mt:else>
+<mtapp:statusmsg id="error" class="error">
+<mt:var name="err_msg">
+</mtapp:statusmsg>
+</mt:if>
+
+<div class="actions-bar">
+    <div class="actions-bar-inner pkg actions">
+        <button
+            type="submit"
+            accesskey="x"
+            class="cancel action mt-close-dialog"
+            title="<__trans phrase="Close (x)">"
+            ><__trans phrase="Close"></button>
+    </div>
+</div>
+
+<mt:include name="dialog/footer.tmpl">

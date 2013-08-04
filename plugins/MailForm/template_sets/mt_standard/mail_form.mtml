@@ -1,0 +1,15 @@
+<MTSetVar name="mail_setting" value="">
+<MTSetVar name="body_class" value="mt-main-index">
+<MTSetVar name="main_template" value="1">
+<MTSetVar name="sidebar" value="1">
+<MTSetVar name="nav_on" value="mailform">
+<MTSetVarBlock name="page_title">メールフォーム</MTSetVarBlock>
+<mt:SetVarBlock name="title">メールフォーム - <$mt:BlogName encode_html="1"$></mt:SetVarBlock>
+<$MTInclude module="ヘッダー"$>
+
+<div>
+    <h2 class="comments-open-header">メールの送信</h2>
+<$MTIncludeMailFormCommon$>
+</div>
+
+<$MTInclude module="フッター"$>

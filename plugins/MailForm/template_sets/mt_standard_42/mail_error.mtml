@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard">
+<head>
+    <$mt:include module="HTMLヘッダー"$>
+    <title><$MTBlogName encode_html="1"$> : メールフォーム : メール送信エラー</title>
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="<$MTLink template="rsd"$>" />
+    <script type="text/javascript" src="<$MTLink template="javascript"$>"></script>
+</head>
+<body id="<$mt:BlogTemplateSetID$>" class="mt-main-index <$MTVar name="page_layout"$>">
+    <div id="container">
+        <div id="container-inner">
+
+
+            <$mt:include module="バナーヘッダー"$>
+
+
+            <div id="content">
+                <div id="content-inner">
+
+
+                    <div id="alpha">
+                        <div id="alpha-inner">
+    <h2 class="comments-open-header">メール送信エラー</h2>
+    <div class="comments-open-content">
+        <p>以下のエラーが発生しました。<br />メールを修正して再度送信してください。</p>
+        <blockquote><p><$MTErrorMessage$></p></blockquote>
+    </div>
+
+    <h2 class="comments-open-header">メールフォーム</h2>
+<$MTIncludeMailFormCommon$>
+                        </div>
+                    </div>
+
+
+                    <$MTInclude module="サイドバー"$>
+
+
+                </div>
+            </div>
+
+
+            <$mt:include module="バナーフッター"$>
+
+
+        </div>
+    </div>
+</body>
+</html>

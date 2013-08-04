@@ -1,0 +1,93 @@
+<mt:setvarblock name="page_title"><__trans phrase="Manage Mail Form"></mt:setvarblock>
+
+<mt:setvarblock name="action_buttons">
+            <button
+                accesskey="x"
+                title="<$mt:var name="delete_button_title"$>"
+                class="mt-delete-items"
+                onclick="doRemoveItems(getByID('<$mt:var name="object_type"$>-listing-form'), '<__trans phrase="Mail Form" escape="js">', '<__trans phrase="Mail Forms" escape="js">'); return false;"
+                ><__trans phrase="Delete"></button>
+<mt:ignore>
+    <a href="javascript:void(0)"
+        onclick="doRemoveItems(getByID('<$mt:var name="object_type"$>-listing-form'), '<__trans phrase="Mail Form" escape="js">', '<__trans phrase="Mail Forms" escape="js">'); return false;"
+        accesskey="x"
+        title="<__trans phrase="Delete selected [_1] (x)" params="<$mt:var name="object_label_plural"$>">"
+        ><__trans phrase="Delete"></a>
+</mt:ignore>
+</mt:setvarblock>
+
+<mt:setvarblock name="related_content">
+    <mtapp:widget
+        id="useful-links"
+        label="<__trans phrase="Useful links">">
+        <ul>
+            <li><a href="<mt:var name="script_url">?__mode=fjmf_install_template_setup&amp;blog_id=<mt:var name="blog_id">"><__trans phrase="Install Sample Mail Form Template"></a></li>
+        </ul>
+    </mtapp:widget>
+</mt:setvarblock>
+
+<mt:setvarblock name="html_head" append="1">
+<script type="text/javascript">
+<!--
+var tableSelect;
+function init() {
+    tableSelect = new TC.TableSelect( 'mailform_setting-listing-table' );
+    tableSelect.rowSelect = true;
+}
+TC.attachLoadEvent(init);
+-->
+</script>
+<link rel="stylesheet" href="<mt:var name="static_uri">plugins/MailForm/css/mailform.css" type="text/css" />
+</mt:setvarblock>
+
+<mt:setvarblock name="content_header">
+    <mt:if name="saved_deleted">
+        <mtapp:statusmsg
+            id="saved-deleted"
+            class="success">
+            <__trans phrase="You have successfully deleted the checked mail form(s).">
+        </mtapp:statusmsg>
+    </mt:if>
+    <p><a href="<mt:var name="script_url">?__mode=fjmf_do_setting&amp;blog_id=<mt:var name="blog_id">" class="icon-left icon-create"><__trans phrase="Create Mail Form"></a></p>
+</mt:setvarblock>
+
+<mt:include name="include/header.tmpl">
+
+    <div class="listing-filter">
+        <div class="listing-filter-inner inner pkg">
+            <form id="filter-select-form" method="get" onsubmit="return execFilter(this)">
+                <div class="filter">
+                    <strong><__trans phrase="Mail Form"></strong>
+                </div>
+            </form>
+        </div><!-- /listing filter -->
+    </div><!-- /listing-filter/inner -->
+
+<mtapp:listing empty_message="$empty_message">
+    <mt:if __first__>
+        <thead>
+            <tr>
+                <th class="cb"><input type="checkbox" name="id-head" value="all" class="select" /></th>
+                <mt:setvar id="th_before_title" name="th_before_title" value="dummy">
+                <th class="mflist_title"><__trans phrase="Title"></th>
+                <mt:setvar id="th_before_author" name="th_before_author" value="dummy">
+                <th class="mflist_author"><__trans phrase="Author"></th>
+                <mt:setvar id="th_before_description" name="th_before_description" value="dummy">
+                <th class="mflist_description"><__trans phrase="Description"></th>
+                <mt:setvar id="th_after_description" name="th_after_description" value="dummy">
+            </tr>
+        </thead>
+    </mt:if>
+            <tr class="<mt:if name="__odd__">odd<mt:else>even</mt:if>">
+                <td class="cb"><input type="checkbox" name="id" class="select" value="<mt:var name="id">" /></td>
+                <mt:setvar id="td_before_title" name="td_before_title" value="dummy">
+                <td class="mflist_title"><a href="<mt:var name="script_url">?__mode=fjmf_do_setting&amp;blog_id=<$mt:var name="blog_id">&amp;id=<$mt:var name="id">"><mt:var name="title"></a></td>
+                <mt:var id="td_before_author" name="td_before_author" value="dummy">
+                <td class="mflist_author"><mt:var name="author"></td>
+                <mt:var id="td_before_description" name="td_before_description" value="dummy">
+                <td class="mflist_description"><mt:var name="description"></td>
+                <mt:var id="td_after_description" name="td_after_description" value="dummy">
+            </tr>
+</mtapp:listing>
+
+<mt:include name="include/footer.tmpl">

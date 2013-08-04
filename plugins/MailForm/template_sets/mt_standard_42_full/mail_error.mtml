@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard">
+<head>
+    <$mt:include module="HTMLヘッダー"$>
+    <title><$MTBlogName encode_html="1"$> : メールフォーム : メール送信エラー</title>
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="<$MTLink template="rsd"$>" />
+    <script type="text/javascript" src="<$MTLink template="javascript"$>"></script>
+</head>
+<body id="<$mt:BlogTemplateSetID$>" class="mt-main-index <$MTVar name="page_layout"$>">
+    <div id="container">
+        <div id="container-inner">
+
+
+            <$mt:include module="バナーヘッダー"$>
+
+
+            <div id="content">
+                <div id="content-inner">
+
+
+                    <div id="alpha">
+                        <div id="alpha-inner">
+    <h2 class="comments-open-header">メール送信エラー</h2>
+    <div class="comments-open-content">
+        <p>
+<MTMailPreviewIfInputError>
+ご入力いただいた内容に一部不備がありました。<br />お手数ですが修正して再度送信してください。
+<MTElse>
+<MTMailIfSendError>
+メールの送信に失敗しました。<br />お手数ですが再度送信をお試しください。
+</MTMailIfSendError>
+<MTMailIfAutoReplyError>
+自動返信に失敗しました。
+</MTMailIfAutoReplyError>
+<MTMailIfThrottled>
+誤送信防止のため、短時間での連続送信はご遠慮いただいています。<br />時間をおいて再度送信してください。
+</MTMailIfThrottled>
+<MTMailIfIPBanned>
+恐れ入りますが、送信元のIPアドレスがブラックリストに登録されています。
+</MTMailIfIPBanned>
+<MTMailIfSpam>
+恐れ入りますが、メールがスパムであると判定されました。<br />メールの本文を修正の上、再度送信してください。
+</MTMailIfSpam>
+</MTMailPreviewIfInputError>
+        </p>
+    </div>
+
+    <h2 class="comments-open-header">メールフォーム</h2>
+<$MTIncludeMailFormCommon$>
+                        </div>
+                    </div>
+
+
+                    <$MTInclude module="サイドバー"$>
+
+
+                </div>
+            </div>
+
+
+            <$mt:include module="バナーフッター"$>
+
+
+        </div>
+    </div>
+</body>
+</html>

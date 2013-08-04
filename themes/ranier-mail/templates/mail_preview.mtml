@@ -1,0 +1,64 @@
+<mt:SetVarBlock name="this_link"><$mt:CGIPath$>plugins/MailForm/mt-mail-form.cgi</mt:SetVarBlock>
+
+<!DOCTYPE html>
+<html lang="<$mt:BlogLanguage$>" itemscope itemtype="http://schema.org/Blog">
+  <head>
+    <meta charset="<$mt:PublishCharset$>">
+    <mt:If tag="BlogDescription"><meta name="description" content="<$mt:BlogDescription remove_html="1" encede_html="1"$>"></mt:If>
+    <title>送信確認 - <$mt:BlogName encode_html="1"$></title>
+    <link rel="canonical" href="<$mt:GetVar name="this_link" encode_html="1"$>">
+    <$mt:Include module="HTMLヘッダー"$>
+    <!-- Open Graph Protocol -->
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="<$mt:BlogLanguage setvar="blog_lang"$><mt:If name="blog_lang" eq="ja">ja_JP<mt:else><$mt:Var name="blog_lang"$></mt:If>">
+    <meta property="og:title" content="送信確認 - <$mt:BlogName encode_html="1"$>">
+    <meta property="og:url" content="<$mt:GetVar name="this_link" encode_html="1"$>">
+    <mt:If tag="BlogDescription"><meta property="og:description" content="<$mt:BlogDescription remove_html="1" encode_html="1"$>"></mt:If>
+    <meta property="og:site_name" content="<$mt:BlogName encode_html="1"$>">
+    <meta property="og:image" content="<mt:Assets type="image" tag="@SITE_ICON" limit="1"><$mt:AssetThumbnailURL width="320px" square="1" encode_html="1"$><mt:Else><$mt:SupportDirectoryURL encode_html="1"$>theme_static/<$mt:BlogThemeID$>/img/siteicon-sample.png</mt:Assets>">
+    <!-- Microdata -->
+    <mt:If tag="BlogDescription"><meta itemprop="description" content="<$mt:BlogDescription remove_html="1" encede_html="1"$>"></mt:If>
+    <meta itemprop="name" content="<$mt:BlogName encode_html="1"$>">
+    <link itemprop="url" href="<$mt:GetVar name="this_link" encode_html="1"$>">
+    <link itemprop="image" href="<mt:Assets type="image" tag="@SITE_ICON" limit="1"><$mt:AssetThumbnailURL width="320px" square="1" encode_html="1"$><mt:Else><$mt:SupportDirectoryURL encode_html="1"$>theme_static/<$mt:BlogThemeID$>/img/siteicon-sample.png</mt:Assets>">
+  </head>
+  <body>
+    <div id="container">
+      <div id="container-inner">
+        <header id="header" role="banner">
+          <div id="header-inner">
+            <$mt:Include module="バナーヘッダー"$>
+            <$mt:Include module="ナビゲーション"$>
+          </div>
+        </header>
+        <div id="content">
+          <div id="content-inner">
+            <div id="index-main" class="main" role="main">
+              <h2 class="comments-open-header">メールの確認</h2>
+              <div class="comments-open-content">
+                <p>以下の内容でメールを送信します。<br />内容を修正する場合は、この後にあるメールフォームで修正してください。</p>
+                <p>名前:<br /><$mt:MailPreviewAuthor$></p>
+                <p>メールアドレス:<br /><$mt:MailPreviewEMail$></p>
+                <p>題名:<br /><$mt:MailPreviewSubject$></p>
+                <p>本文:<br /><$mt:MailPreviewBody convert_breaks="1"$></p>
+              </div>
+
+              <h2 class="comments-open-header">メールの送信</h2>
+              <$mt:IncludeMailFormCommon$>
+            </div>
+            <aside class="widgets related" role="complementary">
+              <$mt:WidgetSet name="関連コンテンツ"$>
+            </aside>
+          </div>
+        </div>
+        <footer id="footer" role="contentinfo">
+          <div id="footer-inner">
+            <$mt:Include module="バナーフッター"$>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <script src="<$mt:StaticWebPath encode_html="1"$>jquery/jquery.min.js"></script>
+    <script src="<$mt:Link template="javascript_theme" encode_html="1">"></script>
+  </body>
+</html>

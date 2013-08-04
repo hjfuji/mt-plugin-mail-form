@@ -1,0 +1,466 @@
+<mt:setvarblock name="page_title"><__trans phrase="Setting of Mail Form"></mt:setvarblock>
+
+<mt:setvarblock name="content_header">
+    <mt:if name="saved">
+        <mtapp:statusmsg
+            id="saved"
+            class="success">
+            <__trans phrase="Your changes have been saved.">
+        </mtapp:statusmsg>
+    </mt:if>
+</mt:setvarblock>
+
+<mt:setvarblock name="related_content">
+    <mtapp:widget
+        id="useful-links"
+        label="<__trans phrase="Useful links">">
+        <ul>
+            <li><a href="javascript:void()" title="<__trans phrase="View Mail Form">" class="view_mail_form"><__trans phrase="View Mail Form"></a></li>
+            <li><a href="<mt:var name="script_url">?__mode=list&amp;_type=mailform_setting&amp;blog_id=<mt:var name="blog_id">"><__trans phrase="Manage Mail Form"></a></li>
+            <li><a href="<mt:var name="script_url">?__mode=fjmf_install_template_setup&amp;blog_id=<mt:var name="blog_id">"><__trans phrase="Install Sample Mail Form Template"></a></li>
+        </ul>
+    </mtapp:widget>
+</mt:setvarblock>
+
+<mt:setvartemplate name="action_buttons">
+    <button
+        type="submit"
+        accesskey="s"
+        title="<__trans phrase="Save Changes">"
+        class="primary-button action"
+        ><__trans phrase="Save Changes"></button>
+</mt:setvartemplate>
+
+<mt:setvarblock name="html_head" append="1">
+<script type="text/javascript">
+<!--
+var tmpl_module_map =
+<mt:var name="tmpl_module_map">;
+var mailform_info =
+<mt:var name="mailform_info">;
+
+function changeTemplate(obj) {
+    var name = obj.id.replace('_template_id', '');
+    if (name == 'form') {
+        changeMailFormLink();
+    }
+    changeLink(name);
+    return false;
+}
+
+function tmplNotSelected() {
+    alert('<__trans phrase="Template is not selected">');
+    return false;
+}
+
+function retTrue() {
+    return true;
+}
+
+function changeLink(name) {
+    var sel = jQuery('#' + name + '_template_id');
+    var tmpl_id = Math.floor(sel.val());
+    var url;
+    if (tmpl_id) {
+        jQuery('#' + name + '_template_link').attr('href', '<mt:var name="script_url">?__mode=view&_type=template&id=' + tmpl_id + '&blog_id=' + tmpl_module_map[tmpl_id]);
+        jQuery('#' + name + '_template_link').attr('target', '_blank');
+        jQuery('#' + name + '_template_link').unbind('click', tmplNotSelected);
+        jQuery('#' + name + '_template_link').bind('click', retTrue);
+    }
+    else {
+        jQuery('#' + name + '_template_link').attr('href', 'javascript:void()');
+        jQuery('#' + name + '_template_link').removeAttr('target');
+        jQuery('#' + name + '_template_link').unbind('click', retTrue);
+        jQuery('#' + name + '_template_link').bind('click', tmplNotSelected);
+    }
+    return false;
+}
+
+function changeMailFormLink() {
+    var sel = jQuery('#form_template_id');
+    var tmpl_id = Math.floor(sel.val());
+    if (tmpl_id) {
+        jQuery('.view_mail_form').attr('href', mailform_info[tmpl_id]);
+        jQuery('.view_mail_form').attr('target', '_blank');
+        jQuery('.view_mail_form').unbind('click', tmplNotSelected);
+        jQuery('.view_mail_form').bind('click', retTrue);
+    }
+    else {
+        jQuery('.view_mail_form').attr('href', 'javascript:void()');
+        jQuery('.view_mail_form').removeAttr('target');
+        jQuery('.view_mail_form').unbind('click', retTrue);
+        jQuery('.view_mail_form').bind('click', tmplNotSelected);
+    }
+    return false;
+}
+
+function insertMTSetVarTag() {
+    var sel = jQuery('#form_template_id');
+    var title = jQuery('#title').val();
+    var tmpl_id = Math.floor(sel.val());
+    if (tmpl_id && title) {
+        var param = 'blog_id=<mt:var name="blog_id">&id=' + tmpl_id + '&title=' + encodeURIComponent(title);
+        jQuery.fn.mtDialog.open('<mt:var name="script_url">?__mode=fjmf_insert_tag&' + param);
+    }
+    else if (!title) {
+        alert('<__trans phrase="Title is not specified">');
+    }
+    else {
+        alert('<__trans phrase="Template is not selected">');
+    }
+    return false;
+}
+
+function rebuildMailForm() {
+    var sel = jQuery('#form_template_id');
+    var tmpl_id = Math.floor(sel.val());
+    if (tmpl_id) {
+        var param = 'blog_id=<mt:var name="blog_id">&id=' + tmpl_id;
+        jQuery.fn.mtDialog.open('<mt:var name="script_url">?__mode=fjmf_rebuild&' + param);
+    }
+    else {
+        alert('<__trans phrase="Template is not selected">');
+    }
+    return false;
+}
+
+TC.attachLoadEvent(attachChecker);
+
+function attachChecker(e) {
+    var i, j, eids;;
+
+    eids = [
+         'title', 'description', 'email_to', 'email_cc', 'email_bcc',
+         'email_to2', 'email_from', 'email_from_type_0',
+         'form_template_id', 'preview_template_id', 'error_template_id',
+         'post_template_id', 'common_template_id', 'body_template_id',
+         'auto_reply', 'rmail_from',
+         'reply_subject', 'reply_template_id',
+//         'error_specific_check', 
+         'error_check_fields', 'must_check_fields',
+         'email_confirm', 'error_check_in_preview',
+//         'use_ajax', 
+         'wait_msg', 'error_msg'
+    ];
+    for (i = 0, j = eids.length; i < j; i++) {
+        jQuery('#' + eids[i]).bind('change', function() {
+            app.setDirty();
+        });
+    }
+    tmpl_links = [
+        'form', 'preview', 'error', 'post', 'common', 'body', 'reply'
+    ];
+    for (i = 0, j = tmpl_links.length; i < j; i++) {
+        jQuery('#' + tmpl_links[i] + '_template_id').bind(
+            'change', function() { changeTemplate(this); }
+        );
+        if (tmpl_links[i] == 'form') {
+            changeMailFormLink(tmpl_links[i]);
+        }
+        changeLink(tmpl_links[i]);
+    }
+}
+
+TC.attachBeforeUnloadEvent(checkChanged);
+
+function checkChanged(e) {
+    if (app.changed) {
+        if (e) {
+            return e.returnValue = '<__trans phrase="Mail form setting will lost.">';
+        }
+        else {
+            return '<__trans phrase="Mail form setting will lost.">';
+        }
+    }
+    return undefined;
+}
+-->
+</script>
+</mt:setvarblock>
+
+<mt:include name="include/header.tmpl">
+
+<form method="post" action="<mt:var name="script_url">" onsubmit="app.changed = false; this.submit();">
+<mt:if name="id">
+    <input type="hidden" name="id" value="<mt:var name="id">" />
+</mt:if>
+    <input type="hidden" name="blog_id" value="<mt:var name="blog_id">" />
+    <input type="hidden" name="__mode" value="fjmf_save_setting" />
+
+    <fieldset>
+
+    <mt:setvar name="section_basic_setting" id="section_basic_setting" value="dummy">
+
+    <h3><__trans phrase="Basic setting"></h3>
+
+    <mtapp:setting
+        id="title"
+        label="<__trans phrase="Title of setting">"
+        show_hint="0">
+        <input name="title" id="title" value="<mt:var name="title" escape="html">" size="50" class="full-width" />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="description"
+        label="<__trans phrase="Description of mail form">"
+        show_hint="0">
+        <textarea name="description" id="description" class="text high full-width medium"><mt:var name="description" escape="html"></textarea>
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="email_to"
+        label="<__trans phrase="Mail address to send">"
+        show_hint="0">
+        <input name="email_to" id="email_to" value="<mt:var name="email_to" escape="html">" size="50" class="full-width" />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="mail_subject"
+        label="<__trans phrase="Mail subject">"
+        show_hint="0">
+        <input name="mail_subject" id="mail_subject" value="<mt:var name="mail_subject" escape="html">" size="50" class="full-width" />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="form_template_id"
+        label="<__trans phrase="Mail form template">">
+        <select name="form_template_id" id="form_template_id" class="full-width">
+        <mt:loop name="form_tmpl_data">
+            <option value="<$mt:var name="tmpl_id">"<mt:if name="tmpl_id" eq="$form_template_id"> selected="selected"</mt:if>><$mt:var name="tmpl_name"></option>
+        </mt:loop>
+        </select>
+        <a id="form_template_link" href="javascript:void()" title="<__trans phrase="Edit template">"><img src="<mt:var name="static_uri">images/filter.gif" alt="<__trans phrase="Edit template">" width="8" height="8" /></a>
+        <a href="javascript:void()" title="<__trans phrase="View mail form">" class="view_mail_form"><img src="<mt:var name="static_uri">images/status_icons/link.gif" alt="<__trans phrase="View mail form">" width="16" height="9" /></a><br />
+        <mt:if name="id"><button onclick="return insertMTSetVarTag();"><__trans phrase="Insert required MTSetVar tag to mail form template"></button>
+        <button onclick="return rebuildMailForm();"><__trans phrase="Rebuild mail form template"></button></mt:if>
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="preview_template_id"
+        label="<__trans phrase="Preview template">">
+        <select name="preview_template_id" id="preview_template_id" class="full-width">
+        <mt:loop name="preview_tmpl_data">
+            <option value="<$mt:var name="tmpl_id">"<mt:if name="tmpl_id" eq="$preview_template_id"> selected="selected"</mt:if>><$mt:var name="tmpl_name"></option>
+        </mt:loop>
+        </select>
+        <a id="preview_template_link" href="javascript:void()" title="<__trans phrase="Edit template">"><img src="<mt:var name="static_uri">images/filter.gif" alt="<__trans phrase="Edit template">" width="8" height="8" /></a>
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="error_template_id"
+        label="<__trans phrase="Error template">">
+        <select name="error_template_id" id="error_template_id" class="full-width">
+        <mt:loop name="error_tmpl_data">
+            <option value="<$mt:var name="tmpl_id">"<mt:if name="tmpl_id" eq="$error_template_id"> selected="selected"</mt:if>><$mt:var name="tmpl_name"></option>
+        </mt:loop>
+        </select>
+        <a id="error_template_link" href="javascript:void()" title="<__trans phrase="Edit template">"><img src="<mt:var name="static_uri">images/filter.gif" alt="<__trans phrase="Edit template">" width="8" height="8" /></a>
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="post_template_id"
+        label="<__trans phrase="Post template">">
+        <select name="post_template_id" id="post_template_id" class="full-width">
+        <mt:loop name="post_tmpl_data">
+            <option value="<$mt:var name="tmpl_id">"<mt:if name="tmpl_id" eq="$post_template_id"> selected="selected"</mt:if>><$mt:var name="tmpl_name"></option>
+        </mt:loop>
+        </select>
+        <a id="post_template_link" href="javascript:void()" title="<__trans phrase="Edit template">"><img src="<mt:var name="static_uri">images/filter.gif" alt="<__trans phrase="Edit template">" width="8" height="8" /></a>
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="common_template_id"
+        label="<__trans phrase="Common module of mail form">">
+        <select name="common_template_id" id="common_template_id" class="full-width">
+        <mt:loop name="common_tmpl_data">
+            <option value="<$mt:var name="tmpl_id">"<mt:if name="tmpl_id" eq="$common_template_id"> selected="selected"</mt:if>><$mt:var name="tmpl_name"></option>
+        </mt:loop>
+        </select>
+        <a id="common_template_link" href="javascript:void()" title="<__trans phrase="Edit template">"><img src="<mt:var name="static_uri">images/filter.gif" alt="<__trans phrase="Edit template">" width="8" height="8" /></a>
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="body_template_id"
+        label="<__trans phrase="Mail body template">">
+        <select name="body_template_id" id="body_template_id" class="full-width">
+        <mt:loop name="body_tmpl_data">
+            <option value="<$mt:var name="tmpl_id">"<mt:if name="tmpl_id" eq="$body_template_id"> selected="selected"</mt:if>><$mt:var name="tmpl_name"></option>
+        </mt:loop>
+        </select>
+        <a id="body_template_link" href="javascript:void()" title="<__trans phrase="Edit template">"><img src="<mt:var name="static_uri">images/filter.gif" alt="<__trans phrase="Edit template">" width="8" height="8" /></a>
+    </mtapp:setting>
+
+    <mt:setvar name="section_auto_reply" id="section_auto_reply" value="dummy">
+
+    <h3><__trans phrase="Auto reply"></h3>
+
+    <mtapp:setting
+        id="auto_reply"
+        label="<__trans phrase="Use auto reply">">
+        <input type="checkbox" name="auto_reply" id="auto_reply" value="1"<mt:if name="auto_reply"> checked="checked"</mt:if> />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="rmail_from"
+        label="<__trans phrase="Mail address of auto reply">">
+        <input name="rmail_from" id="rmail_from" value="<mt:var name="rmail_from" escape="html">" size="50" class="full-width" />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="reply_subject"
+        label="<__trans phrase="Reply mail subject">">
+        <input name="reply_subject" id="reply_subject" value="<mt:var name="reply_subject" escape="html">" size="50" class="full-width" />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="reply_template_id"
+        label="<__trans phrase="Reply mail body template">">
+        <select name="reply_template_id" id="reply_template_id" class="full-width">
+        <mt:loop name="reply_tmpl_data">
+            <option value="<$mt:var name="tmpl_id">"<mt:if name="tmpl_id" eq="$reply_template_id"> selected="selected"</mt:if>><$mt:var name="tmpl_name"></option>
+        </mt:loop>
+        </select>
+        <a id="reply_template_link" href="javascript:void()" title="<__trans phrase="Edit template">"><img src="<mt:var name="static_uri">images/filter.gif" alt="<__trans phrase="Edit template">" width="8" height="8" /></a>
+    </mtapp:setting>
+
+    <mt:setvar name="section_detail_setting" id="section_detail_setting" value="dummy">
+
+    <h3><__trans phrase="Detail setting"></h3>
+
+    <mtapp:setting
+        id="email_to2"
+        label="<__trans phrase="Secondary mail address to send">(to)"
+        show_hint="0">
+        <input name="email_to2" id="email_to2" value="<mt:var name="email_to2" escape="html">" size="50" class="full-width" />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="email_cc"
+        label="<__trans phrase="Secondary mail address to send">(cc)"
+        show_hint="0">
+        <input name="email_cc" id="email_cc" value="<mt:var name="email_cc" escape="html">" size="50" class="full-width" />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="email_bcc"
+        label="<__trans phrase="Secondary mail address to send">(bcc)"
+        show_hint="0">
+        <input name="email_bcc" id="email_bcc" value="<mt:var name="email_bcc" escape="html">" size="50" class="full-width" />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="email_from_type_0"
+        label="<__trans phrase="Mail address to send from">"
+        show_hint="0">
+        <p><input type="radio" name="email_from_type" id="email_from_type_0" value="0"<mt:unless name="email_from_type"> checked="checked"</mt:unless> /><__trans phrase="Mail address of author"><br />
+        <input type="radio" name="email_from_type" id="email_from_type_1" value="1"<mt:if name="email_from_type"> checked="checked"</mt:if> /><__trans phrase="Mail address below"><br />
+        <input name="email_from" id="email_from" value="<mt:var name="email_from" escape="html">" size="50" class="full-width" /></p>
+    </mtapp:setting>
+
+    <h3><__trans phrase="The check item of the form"></h3>
+
+    <mtapp:setting
+        id="error_check_fields"
+        label="<__trans phrase="Fields to error check">">
+        <input name="error_check_fields" id="error_check_fields" value="<mt:var name="error_check_fields" escape="html">" size="50" class="full-width" />
+    </mtapp:setting>
+
+<mt:ignore>
+    <mtapp:setting
+        id="error_specific_check"
+        label="<__trans phrase="Fields and values to check specific error">">
+        <textarea name="error_specific_check" id="error_specific_check" class="text high full-width"><mt:var name="error_specific_check" escape="html"></textarea>
+    </mtapp:setting>
+</mt:ignore>
+
+    <mtapp:setting
+        id="must_check_fields"
+        label="<__trans phrase="Fields to require check on">">
+        <input name="must_check_fields" id="must_check_fields" value="<mt:var name="must_check_fields" escape="html">" size="50" class="full-width" />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="email_confirm"
+        label="<__trans phrase="Confirm mail address">">
+        <input type="checkbox" name="email_confirm" id="email_confirm" value="1"<mt:if name="email_confirm"> checked="checked"</mt:if> />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="error_check_in_preview"
+        label="<__trans phrase="Error check in preview">">
+        <input type="checkbox" name="error_check_in_preview" id="error_check_in_preview" value="1"<mt:if name="error_check_in_preview"> checked="checked"</mt:if> />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="preview_error_template"
+        label="<__trans phrase="Template when error(s) occurred in preview">">
+        <select name="preview_error_template" id="preview_error_template">
+            <option value="preview"<mt:If name="preview_error_template" eq="preview"> selected="selected"</mt:if>><__trans phrase="Preview template"></option>
+            <option value="error"<mt:If name="preview_error_template" eq="error"> selected="selected"</mt:if>><__trans phrase="Error template"></option>
+        </select>
+    </mtapp:setting>
+
+    <mt:setvar name="section_ajax" id="section_ajax" value="dummy">
+
+    <h3><__trans phrase="Ajax"></h3>
+
+<mt:ignore>
+    <mtapp:setting
+        id="use_ajax"
+        label="<__trans phrase="Use Ajax">">
+        <input type="checkbox" name="use_ajax" id="use_ajax" value="1"<mt:if name="use_ajax"> checked="checked"</mt:if> />
+    </mtapp:setting>
+</mt:ignore>
+
+    <mtapp:setting
+        id="wait_msg"
+        label="<__trans phrase="Waiting message">"
+        show_hint="0">
+        <textarea name="wait_msg" id="wait_msg" class="text high full-width"><mt:var name="wait_msg" escape="html"></textarea>
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="error_msg"
+        label="<__trans phrase="Process error message">"
+        show_hint="0">
+        <textarea name="error_msg" id="error_msg" class="text high full-width"><mt:var name="error_msg" escape="html"></textarea>
+    </mtapp:setting>
+
+    <h3><__trans phrase="Language"></h3>
+
+    <mtapp:setting
+        id="language"
+        label="<__trans phrase="Language of MTErrorMessage tag">"
+        show_hint="0">
+        <select name="language" id="language" class="full-width">
+        <mt:loop name="languages">
+            <option value="<mt:var name="l_tag">"<mt:if name="l_selected"> selected="selected"</mt:if>><mt:var name="l_name"></option>
+        </mt:loop>
+        </select>
+    </mtapp:setting>
+
+<mt:if name="is_rootuser">
+    <mt:setvar name="section_author" id="section_author" value="dummy">
+
+    <h3><__trans phrase="Author"></h3>
+
+    <mtapp:setting
+        id="author_id"
+        label="<__trans phrase="Author of this mail form">">
+        <select name="author_id" id="author_id" class="full-width">
+        <mt:loop name="author_data">
+            <option value="<$mt:var name="a_id">"<mt:if name="author_id" eq="$a_id"> selected="selected"</mt:if>><$mt:var name="a_name"></option>
+        </mt:loop>
+        </select>
+    </mtapp:setting>
+<mt:else>
+    <input type="hidden" name="author_id" id="author_id" value="<mt:var name="author_id">" />
+</mt:if>
+    <mt:setvar name="section_end" id="section_end" value="dummy">
+
+    <mt:include name="include/actions_bar.tmpl" bar_position="bottom" hide_pager="1">
+
+    </fieldset>
+</form>
+
+<mt:include name="include/footer.tmpl">

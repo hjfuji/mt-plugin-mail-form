@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="<$mt:BlogLanguage$>" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    <meta charset="<$mt:PublishCharset$>">
+    <meta name="description" content="<$mt:PageExcerpt remove_html="1"$>">
+    <meta name="generator" content="<$mt:ProductName version="1"$>">
+    <title><$mt:PageTitle encode_html="1"$> - <$mt:BlogName encode_html="1"$></title>
+    <link rel="canonical" href="<$mt:PagePermalink encode_html="1"$>">
+    <$mt:Include module="HTMLヘッダー"$>
+    <!-- Open Graph Protocol -->
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="<$mt:BlogLanguage setvar="blog_lang"$><mt:If name="blog_lang" eq="ja">ja_JP<mt:else><$mt:Var name="blog_lang"$></mt:If>">
+    <meta property="og:title" content="<$mt:PageTitle encode_html="1"$>">
+    <meta property="og:url" content="<$mt:PagePermalink encode_html="1"$>">
+    <meta property="og:description" content="<$mt:PageExcerpt remove_html="1" encode_html="1"$>">
+    <meta property="og:site_name" content="<$mt:BlogName encode_html="1"$>">
+    <meta property="og:image" content="<mt:Assets type="image" tag="@SITE_ICON" limit="1"><$mt:AssetThumbnailURL width="320px" square="1" encode_html="1"$><mt:Else><$mt:SupportDirectoryURL encode_html="1"$>theme_static/<$mt:BlogThemeID$>/img/siteicon-sample.png</mt:Assets>">
+    <!-- Metadata -->
+    <meta itemprop="description" content="<$mt:PageExcerpt remove_html="1"$>">
+    <link itemprop="url" href="<$mt:PagePermalink encode_html="1"$>">
+    <link itemprop="image" href="<mt:Assets type="image" tag="@SITE_ICON" limit="1"><$mt:AssetThumbnailURL width="320px" square="1" encode_html="1"$><mt:Else><$mt:SupportDirectoryURL encode_html="1"$>theme_static/<$mt:BlogThemeID$>/img/siteicon-sample.png</mt:Assets>">
+  </head>
+  <body>
+    <div id="container">
+      <div id="container-inner">
+        <header id="header" role="banner">
+          <div id="header-inner">
+            <$mt:Include module="バナーヘッダー"$>
+            <$mt:Include module="ナビゲーション"$>
+          </div>
+        </header>
+        <div id="content">
+          <div id="content-inner">
+            <ul class="breadcrumb breadcrumb-list">
+              <li class="breadcrumb-list-item"><a href="<$mt:BlogURL encode_html="1"$>">ホーム</a></li>
+              <li class="breadcrumb-list-item"><$mt:PageTitle$></li>
+            </ul>
+
+<ul>
+<li>name = <$mt:TemplateName$></li>
+<li>identifier = <$mt:TemplateIdentifier$></li>
+<li>type = <$mt:TemplateType$></li>
+<li>link = <$mt:TemplateLink$></li>
+</ul>
+
+            <div id="page-main" class="main" role="main">
+              <section class="page">
+                <h2 itemprop="name" class="title"><$mt:PageTitle$></h2>
+                <div itemprop="text">
+                  <$mt:PageBody$>
+                  <$mt:PageMore$>
+                </div>
+                <footer>
+                   <p>更新日: <time itemprop="dateModified" datetime="<$mt:PageModifiedDate format_name="iso8601"$>"><$mt:PageModifiedDate format="%x %X"$></time></p>
+                </footer>
+              </section>
+            </div>
+            <aside class="widgets related" role="complementary">
+              <$mt:WidgetSet name="関連コンテンツ"$>
+            </aside>
+          </div>
+        </div>
+        <footer id="footer" role="contentinfo">
+          <div id="footer-inner">
+            <$mt:Include module="バナーフッター"$>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <script src="<$mt:StaticWebPath encode_html="1"$>jquery/jquery.min.js"></script>
+    <script src="<$mt:Link template="javascript_theme" encode_html="1">"></script>
+  </body>
+</html>

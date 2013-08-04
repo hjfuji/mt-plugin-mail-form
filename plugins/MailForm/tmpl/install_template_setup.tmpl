@@ -1,0 +1,95 @@
+<mt:setvarblock name="page_title"><__trans phrase="Install sample template"></mt:setvarblock>
+
+<mt:setvartemplate name="action_buttons">
+    <mtapp:setting
+        id="submit">
+    <button
+        type="submit"
+        accesskey="s"
+        title="<__trans phrase="Install">"
+        class="primary-button action"
+        ><__trans phrase="Install"></button>
+    </mtapp:setting>
+</mt:setvartemplate>
+
+<mt:setvarblock name="related_content">
+    <mtapp:widget
+        id="useful-links"
+        label="<__trans phrase="Useful links">">
+        <ul>
+            <li><a href="<mt:var name="script_url">?__mode=fjmf_do_setting&amp;blog_id=<mt:var name="blog_id">"><__trans phrase="Create Mail Form"></a></li>
+            <li><a href="<mt:var name="script_url">?__mode=list&amp;_type=mailform_setting&amp;blog_id=<mt:var name="blog_id">"><__trans phrase="Manage Mail Form"></a></li>
+        </ul>
+    </mtapp:widget>
+</mt:setvarblock>
+
+<mt:include name="include/header.tmpl">
+
+<form method="post" action="<mt:var name="script_url">">
+    <input type="hidden" name="blog_id" value="<mt:var name="blog_id">" />
+    <input type="hidden" name="__mode" value="fjmf_install_template" />
+
+    <fieldset>
+    <mtapp:setting
+        id="template_set"
+        label="<__trans phrase="Template set">">
+        <select name="template_set" id="template_set" class="full-width">
+        <mt:loop name="tmpl_sets">
+            <option value="<$mt:var name="dir">"><$mt:var name="name"></option>
+        </mt:loop>
+        </select>
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="form_template"
+        label="<__trans phrase="Name of mail form template">">
+        <input name="form_template" id="form_template" size="50" value="<mt:var name="form_template" escape="html">" class="full-width" />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="outfile"
+        label="<__trans phrase="Output filename of mail form">">
+        <input name="outfile" id="outfile" size="50" value="<mt:var name="outfile" escape="html">" class="full-width" />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="preview_template"
+        label="<__trans phrase="Name of preview template">">
+        <input name="preview_template" id="preview_template" size="50" value="<mt:var name="preview_template" escape="html">" class="full-width" />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="error_template"
+        label="<__trans phrase="Name of error template">">
+        <input name="error_template" id="error_template" size="50" value="<mt:var name="error_template" escape="html">" class="full-width" />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="post_template"
+        label="<__trans phrase="Name of post template">">
+        <input name="post_template" id="post_template" size="50" value="<mt:var name="post_template" escape="html">" class="full-width" />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="body_template"
+        label="<__trans phrase="Name of body template">">
+        <input name="body_template" id="body_template" size="50" value="<mt:var name="body_template" escape="html">" class="full-width" />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="reply_template"
+        label="<__trans phrase="Name of reply template">">
+        <input name="reply_template" id="reply_template" size="50" value="<mt:var name="reply_template" escape="html">" class="full-width" />
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="common_template"
+        label="<__trans phrase="Name of common module of mail form">">
+        <input name="common_template" id="common_template" size="50" value="<mt:var name="common_template" escape="html">" class="full-width" />
+    </mtapp:setting>
+
+    <mt:include name="include/actions_bar.tmpl" bar_position="bottom" hide_pager="1">
+    </fieldset>
+</form>
+
+<mt:include name="include/footer.tmpl">

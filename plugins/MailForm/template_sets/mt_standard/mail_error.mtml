@@ -1,0 +1,19 @@
+<MTSetVar name="body_class" value="mt-main-index">
+<MTSetVar name="main_template" value="1">
+<MTSetVarBlock name="page_title">メール送信エラー</MTSetVarBlock>
+<MTSetVar name="nav_on" value="mailform">
+<mt:SetVarBlock name="title">メール送信エラー - <$mt:BlogName encode_html="1"$></mt:SetVarBlock>
+<$MTInclude module="ヘッダー"$>
+
+<div>
+    <h2 class="comments-open-header">メール送信エラー</h2>
+    <div class="comments-open-content">
+        <p>以下のエラーが発生しました。<br />メールを修正して再度送信してください。</p>
+        <blockquote><p><$MTErrorMessage$></p></blockquote>
+    </div>
+
+    <h2 class="comments-open-header">メールフォーム</h2>
+<$MTIncludeMailFormCommon$>
+</div>
+
+<$MTInclude module="フッター"$>

@@ -1,0 +1,20 @@
+<MTSetVar name="mail_setting" value="">
+<MTSetVar name="body_class" value="mt-main-index">
+<MTSetVar name="main_template" value="1">
+<MTSetVar name="sidebar" value="1">
+<MTSetVar name="nav_on" value="mailform">
+<mt:SetVarBlock name="title">メールフォーム - <$mt:BlogName encode_html="1"$></mt:SetVarBlock>
+<MTSetVarBlock name="page_title">メールフォーム</MTSetVarBlock>
+<MTIgnore>メールフォームのselect／radioの初期値の指定</MTIgnore>
+<MTSetVar name="mail_description" value="">
+<MTSetVar name="mail_sex" value="男">
+
+<$MTInclude module="ヘッダー"$>
+
+<div>
+    <h2 class="comments-open-header">メールの送信</h2>
+    <p>こちらでメールを送信していただくことができます。<br />「●」がついている項目は入力必須です。</p>
+<$MTIncludeMailFormCommon$>
+</div>
+
+<$MTInclude module="フッター"$>

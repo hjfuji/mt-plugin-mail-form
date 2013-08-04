@@ -1,0 +1,13 @@
+<MTSetVar name="body_class" value="mt-main-index">
+<MTSetVar name="main_template" value="1">
+<MTSetVar name="nav_on" value="mailform">
+<mt:SetVarBlock name="title">メール送信完了 - <$mt:BlogName encode_html="1"$></mt:SetVarBlock>
+<MTSetVarBlock name="page_title">メール送信完了</MTSetVarBlock>
+<$MTInclude module="ヘッダー"$>
+
+<div>
+    <h2 class="comments-open-header">メール送信完了</h2>
+    <p><$MTMailPreviewAuthor$>様、メールを送信いただき、ありがとうございました。</p>
+</div>
+
+<$MTInclude module="フッター"$>

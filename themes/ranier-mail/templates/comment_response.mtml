@@ -1,0 +1,56 @@
+<mt:If name="comment_confirmation">
+  <$mt:Var name="page_title" value="確認"$>
+  <$mt:Var name="message" value="<p class="message success">コメントを投稿しました。</p>"$>
+<mt:Else name="comment_pending">
+  <$mt:Var name="page_title" value="コメントありがとうございます。"$>
+  <$mt:Var name="message" value="<p class="message success">コメントは現在承認されるまで公開を保留されています。</p>"$>
+<mt:Else name="comment_error">
+  <$mt:Var name="page_title" value="コメント投稿エラー"$>
+  <mt:SetVarBlock name="message"><p class="message error">コメントを投稿できませんでした。エラー: <$mt:ErrorMessage$></p></mt:SetVarBlock>
+</mt:If>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="<$mt:PublishCharset$>">
+    <meta name="description" content="<$mt:EntryExcerpt remove_html="1"$>">
+    <title><$mt:BlogName encode_html="1"$> - <$mt:Var name="page_title" encode_html="1"$></title>
+    <$mt:Include module="HTMLヘッダー"$>
+  </head>
+  <body>
+    <div id="container">
+      <div id="container-inner">
+        <header id="header" role="banner">
+          <div id="header-inner">
+            <$mt:Include module="バナーヘッダー"$>
+            <$mt:Include module="ナビゲーション"$>
+          </div>
+        </header>
+        <div id="content">
+          <div id="content-inner">
+            <ul class="breadcrumb breadcrumb-list">
+              <li class="breadcrumb-list-item"><a href="<$mt:BlogURL encode_html="1"$>">ホーム</a></li>
+              <li class="breadcrumb-list-item"><$mt:EntryTitle$></li>
+            </ul>
+            <div id="comment-response-main" class="main" role="main">
+              <section>
+                <h2 class="title"><$mt:Var name="page_title"$></h2>
+                <$mt:Var name="message"$>
+                <p><a href="<mt:If name="comment_error">javascript:history.back()<mt:Else><$mt:EntryLink$></mt:If>">元の記事</a>に戻る</p>
+              </section>
+            </div>
+            <aside class="widgets related" role="complementary">
+              <$mt:WidgetSet name="関連コンテンツ"$>
+            </aside>
+          </div>
+        </div>
+        <footer id="footer" role="contentinfo">
+          <div id="footer-inner">
+            <$mt:Include module="バナーフッター"$>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <script src="<$mt:StaticWebPath encode_html="1"$>jquery/jquery.min.js"></script>
+    <script src="<$mt:Link template="javascript_theme" encode_html="1">"></script>
+  </body>
+</html>
