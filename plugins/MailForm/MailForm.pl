@@ -33,7 +33,7 @@ use MailForm::Setting;
 my $plugin = MT::Plugin::MailForm->new({
     id => 'mailform',
     name => 'Mail Form',
-    version => '2.30',
+    version => '2.32',
     author_name => "<__trans phrase=\"Hajime Fujimoto\">",
     author_link => 'http://www.h-fj.com/blog/',
     doc_link => 'http://www.h-fj.com/blog/mt5plgdoc/mailformv2_3.php',
@@ -536,7 +536,7 @@ HERE
 
 sub mail_form_plugin_version {
     my ($ctx, $args) = @_;
-    mu $plugin = MT->component('mailform');
+    my $plugin = MT->component('mailform');
     return $plugin->{version};
 }
 
