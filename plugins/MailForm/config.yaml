@@ -1,0 +1,177 @@
+#
+# MailForm
+# 2006/03/05 1.00 First Release
+# 2006/06/14 1.10 Version up
+# 2006/10/18 1.11 For Ajax
+# 2007/01/23 1.20 Version up
+# 2007/01/27 1.20.1 Bug fix(XSS)
+# 2007/08/26 1.30.1 Bug Fix
+# 2008/01/09 2.00 Renewal
+# 2008/06/24 2.10 For Movable Type 4.2
+# 2008/08/08 2.10b Bug fix
+# 2009/09/25 2.20beta1 For Movable Type 5
+# 2010/03/21 2.20 For Movable Type 5
+# 2011/05/12 2.30b1 For Movable Type 5.1
+# 2012/07/25 2.30 For Movable Type 5.2
+# 2013/08/04 2.32 Added eigar theme
+#
+# Copyright(c) by H.Fujimoto
+#
+id: mailform
+name: Mail Form
+version: 2.32
+author_name: <__trans phrase="Hajime Fujimoto">
+author_link: http://www.h-fj.com/blog/
+doc_link: http://www.h-fj.com/blog/mt5plgdoc/mailformv2_3.php
+description: <__trans phrase="This plugin allows you to create mail form by Movable Type template.">
+blog_config_template: blog_config_template.tmpl
+l10n_class: MailForm::L10N
+schema_version: 1.02
+tags:
+  function:
+    MailPreviewAuthor: $mailform::MailForm::Tags::mail_preview_author
+    MailPreviewEMail: $mailform::MailForm::Tags::mail_preview_email
+    MailPreviewEMailConfirm: $mailform::MailForm::Tags::mail_preview_email_confirm
+    MailPreviewSubject: $mailform::MailForm::Tags::mail_preview_subject
+    MailPreviewBody: $mailform::MailForm::Tags::mail_preview_body
+    MailPreviewExtParam: $mailform::MailForm::Tags::mail_preview_ext_param
+    MailFormAjaxJS: $mailform::MailForm::Tags::mail_form_ajax_js
+    IncludeMailFormCommon: $mailform::MailForm::Tags::include_mail_form_common
+    MailFormPluginVersion: $mailform::MailForm::Tags::mail_form_plugin_version
+  block:
+    MailPreviewIfError?: $mailform::MailForm::Tags::mail_preview_if_error
+    MailPreviewIfInputError?: $mailform::MailForm::Tags::mail_preview_if_input_error
+    MailPreviewIfFieldError?: $mailform::MailForm::Tags::mail_preview_if_field_error
+    MailPreviewIfEMailError?: $mailform::MailForm::Tags::mail_preview_if_email_error
+    MailPreviewIfEMailDifferent?: $mailform::MailForm::Tags::mail_preview_if_email_different
+    MailPreviewIfNotChecked?: $mailform::MailForm::Tags::mail_preview_if_not_checked
+    MailIfSendError?: $mailform::MailForm::Tags::mail_if_send_error
+    MailIfAutoReplyError?: $mailform::MailForm::Tags::mail_if_auto_reply_error
+    MailIfThrottled?: $mailform::MailForm::Tags::mail_if_throttled
+    MailIfIPBanned?: $mailform::MailForm::Tags::mail_if_ipbanned
+    MailIfSpam?: $mailform::MailForm::Tags::mail_if_spam
+    MailIfSystemTemplate?: $mailform::MailForm::Tags::mail_if_system_template
+    MailBodyContainer: $mailform::MailForm::Tags::mail_body_container
+object_types:
+  mailform_setting: MailForm::Setting
+applications:
+  cms:
+    menus:
+      mailform:
+        label: Mail Form
+        order: 750
+      mailform:manage:
+        label: Manage
+        mode: fjmf_manage_setting
+        mode: list
+        args:
+          _type: mailform_setting
+        order: 100
+        permission: administer_blog,administer_website
+        view:
+          - blog
+          - website
+          - system
+      mailform:create:
+        label: New
+        mode: fjmf_do_setting
+        order: 200
+        permission: administer_blog,administer_website
+        view:
+          - blog
+          - website
+      mailform:sample_tmpl:
+        label: Sample template
+        mode: fjmf_install_template_setup
+        order: 300
+        permission: administer_blog,administer_website
+        view:
+          - blog
+          - website
+    methods:
+      fjmf_do_setting: $mailform::MailForm::DoSetting::do_setting
+      fjmf_manage_setting: $mailform::MailForm::DoSetting::list_setting
+      fjmf_save_setting: $mailform::MailForm::DoSetting::save_setting
+      fjmf_insert_tag: $mailform::MailForm::DoSetting::insert_tag
+      fjmf_rebuild: $mailform::MailForm::DoSetting::rebuild
+      fjmf_install_template_setup: $mailform::MailForm::DoSetting::install_template_setup
+      fjmf_install_template: $mailform::MailForm::DoSetting::install_template
+    list_actions:
+      mailform_setting:
+        delete:
+          label: Delete
+          code: $mailform::CMS::Common::delete
+          mode: delete
+          order: 110
+          js_message:  delete
+          button: 1
+  mailform:
+    handler: MailForm
+    script: >
+      sub {
+        return MT->config->MailFormScript ||
+               'mt-mail-form.cgi';
+      }
+    cgi_path: >
+      sub {
+        my $path = MT->config->MailFormCGIPath;
+        if (!$path) {
+          $path = MT->config->CGIPath;
+          $path =~ s!/$!!;
+          $path =~ s!^https?://[^/]*!!;
+          $path .= '/plugins/MailForm';
+        }
+        else {
+          $path =~ s!/$!!;
+        }
+        return $path;
+      }
+callbacks:
+  restore: $mailform::MailForm::DoSetting::restore
+  cms_post_delete.mailform_setting: $mailform::MailForm::DoSetting::post_delete
+upgrade_functions:
+  add_author_id_field:
+    version_limit: 1.01
+    code: $mailform::MailForm::Misc::add_author_id_field
+listing_screens:
+  mailform_setting:
+    primary: title
+    default_sort_key: title
+list_properties:
+  mailform_setting:
+    title:
+      auto: 1
+      label: Title
+      display: force
+      order: 200
+      html: $mailform::MailForm::Misc::title_html
+    id:
+      base: __virtual.id
+      label: ID
+      order: 100
+      display: optional
+    description:
+      auto: 1
+      label: Description
+      order: 300
+      display: optional
+    blog_id:
+      auto: 1
+      label: Blog ID
+      display: optional
+      order: 350
+    blog_name:
+      base: __common.blog_name
+      label: Website/Blog Name
+      display: >
+        sub {
+          my $blog = MT->app->blog;
+          return ($blog && $blog->is_blog) ? 'none' : 'optional';
+        }
+      site_name: >
+        sub { MT->app->blog ? 0 : 1 }
+      order: 400
+    author_name:
+      base: __virtual.author_name
+      order: 500
+      display: optional

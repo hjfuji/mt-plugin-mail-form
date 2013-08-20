@@ -50,8 +50,8 @@ my %select_fields = (
 );
 
 sub do_setting {
-    my $plugin = shift;
     my $app = shift;
+    my $plugin = MT->component('mailform');
 
     my %params;
     my $blog_id = $app->param('blog_id');
@@ -177,8 +177,8 @@ HERE
 }
 
 sub list_setting {
-    my $plugin = shift;
     my $app = shift;
+    my $plugin = MT->component('mailform');
 
     my %params;
     my $blog_id = $app->param('blog_id');
@@ -227,8 +227,10 @@ sub list_setting {
 }
 
 sub save_setting {
-    my $plugin = shift;
     my $app = shift;
+    my $plugin = MT->component('mailform');
+
+    $app->validate_magic() or return;
 
     # check permission
     my $perms = $app->permissions
@@ -316,7 +318,8 @@ sub save_setting {
 }
 
 sub post_delete {
-    my ($plugin, $eh, $app, $setting) = @_;
+    my ($eh, $app, $setting) = @_;
+    my $plugin = MT->component('mailform');
 
     $app->log({
             message => $plugin->translate(
@@ -330,8 +333,8 @@ sub post_delete {
 }
 
 sub insert_tag {
-    my $plugin = shift;
     my $app = shift;
+    my $plugin = MT->component('mailform');
     my %params;
 
     # check permission
@@ -386,8 +389,8 @@ sub insert_tag {
 }
 
 sub rebuild {
-    my $plugin = shift;
     my $app = shift;
+    my $plugin = MT->component('mailform');
     my %params;
 
     # check permission
@@ -414,8 +417,8 @@ sub rebuild {
 }
 
 sub install_template_setup {
-    my $plugin = shift;
     my $app = shift;
+    my $plugin = MT->component('mailform');
     my %params;
 
     # check permission
@@ -468,9 +471,11 @@ sub install_template_setup {
 }
 
 sub install_template {
-    my $plugin = shift;
     my $app = shift;
+    my $plugin = MT->component('mailform');
     my %params;
+
+    $app->validate_magic() or return;
 
     # check permission
     my $perms = $app->permissions
@@ -600,7 +605,7 @@ sub install_template {
 }
 
 sub restore {
-    my ($plugin, $cb, $objects, $deferred, $errors, $callback) = @_;
+    my ($cb, $objects, $deferred, $errors, $callback) = @_;
     my (%blogs, %authors, %tmpls, @settings);
 
     for my $key (keys %$objects) {
