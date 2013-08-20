@@ -172,6 +172,30 @@ use vars qw( %Lexicon );
     'Template(s) as below save error.' => '以下のテンプレートの保存に失敗しました。',
     'Template(s) as below are created.' => '以下のテンプレートを作成しました。',
     'Back to setting' => '設定に戻る',
+
+    # sample templates
+    'Send Mail' => 'メールの送信',
+    'Confirm Mail' => 'メールの確認',
+    'Mail Posted' => 'メール送信完了',
+    'Send mail as below.' => '以下の内容でメールを送信します。',
+    'If you modify mail, please use mail form below.' => '内容を修正する場合は、この後にあるメールフォームで修正してください。',
+    'Send Mail Error' => 'メール送信エラー',
+    'Error occured as below.' => '以下のエラーが発生しました。',
+    'Please modify and re-send mail.' => 'メールを修正して再度送信してください。',
+    'Name' => '名前',
+    'Mail Address' => 'メールアドレス',
+    'Subject' => '題名',
+    'Text' => '本文',
+    'Confirm' => '確認',
+    'Submit' => '送信',
+    'Related Contents (Index)' => '関連コンテンツ (インデックス)',
+    'Main Image' =>  'メインイメージ',
+    '_POST_MESSAGE' => '<$mt:MailPreviewAuthor$>様、メールを送信いただき、ありがとうございました。',
+    '_DEAR_MESSAGE' => '<$mt:MailPreviewAuthor$>様',
+    '_THANKYOU_MESSAGE' => '以下のメールをお送りいただきありがとうございました。',
+    'This mail is auto-reply.' => '※このメールは自動返信です。',
+    'Mail Form Plugin' => 'メールフォームプラグイン',
+
 );
 
 1;
