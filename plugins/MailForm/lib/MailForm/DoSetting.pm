@@ -555,6 +555,7 @@ sub install_template {
             my $text = $fmgr->get_data($file_name);
             if (defined($text)) {
                 $text = MT::I18N::encode_text($text, 'utf8', $app->charset);
+                $text = $plugin->translate_templatized($text);
                 my $type = ($name eq 'form') ? 'index' : 'custom';
                 my $tmpl = MT::Template->new;
                 $tmpl->blog_id($blog_id);

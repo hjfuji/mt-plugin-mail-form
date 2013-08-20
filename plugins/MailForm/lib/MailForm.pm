@@ -50,18 +50,20 @@ sub init
     $app;
 }
 
-sub plugin {
-    MT::Plugin::MailForm->instance;
-}
+#sub plugin {
+#    MT::Plugin::MailForm->instance;
+#}
 
-sub translate_templatized {
-    my $app = shift;
-    $app->plugin->translate_templatized(@_);
-}
+#sub translate_templatized {
+#    my $app = shift;
+#    $app->plugin->translate_templatized(@_);
+#}
 
 sub post
 {
     my $app = shift;
+    my $plugin = MT->component('mailform');
+
     my (@errmsg, $from, $data, %head, %rhead, $iter);
     my $mail_log;
     my $iserror = 0;
@@ -85,7 +87,7 @@ sub post
     my $blog_id = $app->param('mail_blog_id');
     my $setting = MailForm::Setting->load({ blog_id => $blog_id,
                                             title => $setting_title });
-    return $app->error($app->plugin->translate('Load setting error'))
+    return $app->error($plugin->translate('Load setting error'))
         if (!$setting);
     my $tmail = $setting->email_to;
     my $tmail2 = $setting->email_to2;
@@ -160,11 +162,11 @@ sub post
         if ($error_check_fields{mail_subject}) {
             $iserror = 1;
             $is_input_error = 1;
-            push @errmsg, $app->plugin->translate('Input mail subject.');
+            push @errmsg, $plugin->translate('Input mail subject.');
             $error_fields{mail_subject} = 1;
         }
         else {
-            $subject = $app->plugin->translate('(No title)');
+            $subject = $plugin->translate('(No title)');
         }
     }
 
@@ -172,7 +174,7 @@ sub post
                     $error_check_fields{mail_email})) {
         $iserror = 1;
         $is_input_error = 1;
-        push @errmsg, $app->plugin->translate('Input your mail address.');
+        push @errmsg, $plugin->translate('Input your mail address.');
         $error_fields{mail_email} = 1;
     }
     elsif(!is_valid_email($email) &&
@@ -180,20 +182,20 @@ sub post
         $error_check_fields{mail_email})) {
         $iserror = 1;
         $is_input_error = 1;
-        push @errmsg, $app->plugin->translate('Mail address is invalid.');
+        push @errmsg, $plugin->translate('Mail address is invalid.');
         $is_mail_invalid_error = 1;
     }
     if ($is_email_confirm && $email ne $email_confirm) {
         $iserror = 1;
         $is_input_error = 1;
-        push @errmsg, $app->plugin->translate('Confirmation mail addresses isdifferent from mail address.');
+        push @errmsg, $plugin->translate('Confirmation mail addresses isdifferent from mail address.');
         $is_mail_different_error = 1;
     }
     if (!$author && (!%error_check_fields ||
                      $error_check_fields{mail_author})) {
         $iserror = 1;
         $is_input_error = 1;
-        push @errmsg, $app->plugin->translate('Input your name.');
+        push @errmsg, $plugin->translate('Input your name.');
         $error_fields{mail_author} = 1;
     }
 
@@ -201,7 +203,7 @@ sub post
                    $error_check_fields{mail_text})) {
         $iserror = 1;
         $is_input_error = 1;
-        push @errmsg, $app->plugin->translate('Input mail body.');
+        push @errmsg, $plugin->translate('Input mail body.');
         $error_fields{mail_text} = 1;
     }
     for my $error_check_field (keys %error_check_fields) {
@@ -210,7 +212,7 @@ sub post
             $iserror = 1;
             $is_input_error = 1;
             $error_fields{$error_check_field} = 1;
-            push @errmsg, $app->plugin->translate('Input field [_1].', $error_check_field);
+            push @errmsg, $plugin->translate('Input field [_1].', $error_check_field);
         }
     }
     for my $error_check_field (keys %error_specific_check_fields) {
@@ -221,7 +223,7 @@ sub post
             $iserror = 1;
             $is_input_error = 1;
             $error_fields{$error_check_field} = 1;
-            push @errmsg, $app->plugin->translate('Input field [_1].', $error_check_field);
+            push @errmsg, $plugin->translate('Input field [_1].', $error_check_field);
         }
     }
 
@@ -233,7 +235,7 @@ sub post
             $iserror = 1;
             $is_input_error = 1;
             $not_checked_fields{$must_check_field} = 1;
-            push @errmsg, $app->plugin->translate('Field [_1] is not checked.', $must_check_field);
+            push @errmsg, $plugin->translate('Field [_1] is not checked.', $must_check_field);
         }
     }
 
@@ -251,7 +253,7 @@ sub post
             if ($log->ip == $app->remote_ip && $log->category eq 'mail_sent') {
                 $iserror = 1;
                 $is_throttled = 1;
-                push @errmsg, $app->plugin->translate('Too many mails have been submitted from you in a short period of time.  Please try again in a short while.');            last;
+                push @errmsg, $plugin->translate('Too many mails have been submitted from you in a short period of time.  Please try again in a short while.');            last;
             }
         }
     }
@@ -264,7 +266,7 @@ sub post
             if ($app->remote_ip =~ /$banned_ip/) {
                 $iserror = 1;
                 $is_ipbanned = 1;
-                push @errmsg, $app->plugin->translate("You are not allowed to send mail.");
+                push @errmsg, $plugin->translate("You are not allowed to send mail.");
                 last;
             }
         }
@@ -289,7 +291,7 @@ sub post
             (defined($mdata->visible) && !$mdata->visible)) {
             $iserror = 1;
             $is_spam = 1;
-            push @errmsg, $app->plugin->translate("Your email is not allowed to send because of spam check.");
+            push @errmsg, $plugin->translate("Your email is not allowed to send because of spam check.");
         }
     }
 
@@ -333,20 +335,20 @@ sub post
             my $tmpl = MT::Template->load({ id => $body_template,
                                             type => 'custom',
                                             blog_id => $blog_id })
-                or return $app->error($app->plugin->translate('Mail Body Template load error'));
+                or return $app->error($plugin->translate('Mail Body Template load error'));
             $mail_body = $tmpl->build($ctx, \%cond);
             return $app->error($tmpl->errstr) unless(defined($mail_body));
         }
         else {
-            $mail_body = $app->plugin->translate("Subject : [_1]\nAuthor : [_2] <[_3]>\nMail body :\n[_4]", $subject, $author, $email, $body);
+            $mail_body = $plugin->translate("Subject : [_1]\nAuthor : [_2] <[_3]>\nMail body :\n[_4]", $subject, $author, $email, $body);
             if (keys %ext_params) {
-                $mail_body .= $app->plugin->translate('Extra fields :') . "\n";
+                $mail_body .= $plugin->translate('Extra fields :') . "\n";
                 for my $param (keys %ext_params) {
                     $mail_body .= $param . " = " . $ext_params{$param} . "\n";
                 }
             }
             if ($rsend && !$email) {
-                 $mail_body .= $app->plugin->translate("\nAuto reply has not done because of mail address was not input.\n");
+                 $mail_body .= $plugin->translate("\nAuto reply has not done because of mail address was not input.\n");
             }
         }
 
@@ -371,12 +373,12 @@ sub post
             my $tmpl = MT::Template->load({ id => $reply_template,
                                             type => 'custom',
                                             blog_id => $blog_id })
-                or return $app->error($app->plugin->translate("Mail Reply Template load error"));
+                or return $app->error($plugin->translate("Mail Reply Template load error"));
             $reply_body = $tmpl->build($rctx, \%rcond);
             return $app->error($tmpl->errstr) unless(defined($reply_body));
         }
         else {
-             $reply_body = $app->plugin->translate("Dear [_1]\n\nThank you for emailing to me.\n(This mail is auto reply.)", $author);
+             $reply_body = $plugin->translate("Dear [_1]\n\nThank you for emailing to me.\n(This mail is auto reply.)", $author);
         }
 
         # build reply subject template
@@ -409,7 +411,7 @@ sub post
         my $mtmpl = MT::Template->new;
         $mtmpl->text($msubject);
         my $mail_subject = $mtmpl->build($ctx, \%cond);
-        $head{Subject} = $mail_subject || $app->plugin->translate('Sent mail from mail form.');
+        $head{Subject} = $mail_subject || $plugin->translate('Sent mail from mail form.');
         $app->run_callbacks('MailForm.pre_mail_send', $app, \%mail_data, $setting, \%head);
         eval {
             MT::Mail->send(\%head, $mail_body) or die("Mail Error");
@@ -418,11 +420,11 @@ sub post
         if ($@) {
             $iserror = 1;
             $is_send_error = 1;
-            push @errmsg, $app->plugin->translate('Sending mail failed.');
+            push @errmsg, $plugin->translate('Sending mail failed.');
             $app->run_callbacks('MailForm.post_mail_send', $app, \%mail_data, $setting, 0);
         }
         else {
-            $mail_log = $app->plugin->translate('Sent mail from mail form.');
+            $mail_log = $plugin->translate('Sent mail from mail form.');
             $app->run_callbacks('MailForm.post_mail_send', $app, \%mail_data, $setting, 1);
         }
 
@@ -430,18 +432,18 @@ sub post
         if ($rsend && $email) {
             $rhead{To} = $email;
             $rhead{From} = $rmail;
-            $rhead{Subject} = $reply_subject || $app->plugin->translate('Thank you for emailing me.');
+            $rhead{Subject} = $reply_subject || $plugin->translate('Thank you for emailing me.');
             $app->run_callbacks('MailForm.pre_rmail_send', $app, \%mail_data, $setting, \%rhead);
             eval {
                 MT::Mail->send(\%rhead, $reply_body) or die("Mail Error");
             };
             if ($@) {
                 $is_auto_reply_error = 1;
-                push @errmsg, $app->plugin->translate('Sending mail failed.');
+                push @errmsg, $plugin->translate('Sending mail failed.');
                 $app->run_callbacks('MailForm.post_rmail_send', $app, \%mail_data, $setting, 0);
             }
             else {
-                $mail_log .= $app->plugin->translate('(and auto reply)');
+                $mail_log .= $plugin->translate('(and auto reply)');
                 $app->run_callbacks('MailForm.post_rmail_send', $app, \%mail_data, $setting, 1);
             }
         }
@@ -531,13 +533,13 @@ sub post
                                     blog_id => $blog_id });
     if (!$tmpl) {
         if ($preview) {
-            return $app->error($app->plugin->translate('Preview template load error'));
+            return $app->error($plugin->translate('Preview template load error'));
         }
         elsif ($iserror) {
-            return $app->error($app->plugin->translate('Error template load error'));
+            return $app->error($plugin->translate('Error template load error'));
         }
         else {
-            return $app->error($app->plugin->translate('Post template load error'));
+            return $app->error($plugin->translate('Post template load error'));
         }
     }
     my $html = $tmpl->build($ctx, \%cond);

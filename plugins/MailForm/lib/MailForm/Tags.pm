@@ -1,6 +1,8 @@
 package MailForm::Tags;
 
 use strict;
+use MailForm::Setting;
+use MT::Util qw( html_text_transform );
 
 # MTMailPreviewAuthor tag
 sub mail_preview_author

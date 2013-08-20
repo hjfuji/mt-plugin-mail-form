@@ -8,7 +8,7 @@
     <mt:If tag="BlogDescription"><meta name="description" content="<$mt:BlogDescription remove_html="1" encede_html="1"$>"></mt:If>
     <title>メールフォーム - <$mt:BlogName encode_html="1"$></title>
     <link rel="canonical" href="<$mt:GetVar name="this_link" encode_html="1"$>">
-    <$mt:Include module="HTMLヘッダー"$>
+    <$mt:Include module="<__trans phrase="HTML Head">"$>
     <!-- Open Graph Protocol -->
     <meta property="og:type" content="article">
     <meta property="og:locale" content="<$mt:BlogLanguage setvar="blog_lang"$><mt:If name="blog_lang" eq="ja">ja_JP<mt:else><$mt:Var name="blog_lang"$></mt:If>">
@@ -28,8 +28,8 @@
       <div id="container-inner">
         <header id="header" role="banner">
           <div id="header-inner">
-            <$mt:Include module="バナーヘッダー"$>
-            <$mt:Include module="ナビゲーション"$>
+            <$mt:Include module="<__trans phrase="Banner Header">"$>
+            <$mt:Include module="<__trans phrase="Navigation">"$>
           </div>
         </header>
         <div id="content">
@@ -39,13 +39,13 @@
               <$MTIncludeMailFormCommon$>
             </div>
             <aside class="widgets related" role="complementary">
-              <$mt:WidgetSet name="関連コンテンツ"$>
+              <$mt:WidgetSet name="<__trans phrase="Related Content">"$>
             </aside>
           </div>
         </div>
         <footer id="footer" role="contentinfo">
           <div id="footer-inner">
-            <$mt:Include module="バナーフッター"$>
+            <$mt:Include module="<__trans phrase="Banner Footer">"$>
           </div>
         </footer>
       </div>

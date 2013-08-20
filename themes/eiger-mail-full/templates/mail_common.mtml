@@ -1,0 +1,72 @@
+<div class="comments-open-content">
+    <form method="post" action="<$MTCGIPath$>plugins/MailForm/mt-mail-form.cgi" name="mail_form" id="mail_form">
+        <p id="mail-form-author">
+            <label for="mail_author">お名前 ●</label> <MTMailPreviewIfFieldError name="mail_author"><span class="mail-error">お名前を入力してください。</span></MTMailPreviewIfFieldError><br />
+            <input id="mail_author" name="mail_author" size="30" value="<$MTMailPreviewAuthor$>" style="width : 90%;" />
+        </p>
+
+        <p id="mail-form-email">
+            <label for="mail_email">メールアドレス ●</label> <MTMailPreviewIfFieldError name="mail_email"><span class="mail-error">メールアドレスを入力してください。</span></MTMailPreviewIfFieldError><MTMailPreviewIfEMailError><span class="mail-error">メールアドレスの形式が正しくありません。</MTMailPreviewIfEMailError><br />
+            <input id="mail_email" name="mail_email" size="30" value="<$MTMailPreviewEMail$>" style="width : 90%;" />
+        </p>
+
+        <p id="mail-form-email-comfirm">
+            <label for="mail_email_confirm">メールアドレス（確認） ●</label> <MTMailPreviewIfEMailDifferent><span class="mail-error">メールアドレスが一致していません。</MTMailPreviewIfEMailDifferent><br />
+            <input id="mail_email_confirm" name="mail_email_confirm" size="30" value="<$MTMailPreviewEMailConfirm$>" style="width : 90%;" />
+        </p>
+
+<MTSetParamList list_name="description_options">
+|↓選択してください
+ご購入前のご質問|ご購入前のご質問
+ご購入後のサポート|ご購入後のサポート
+その他|その他
+</MTSetParamList>
+        <p id="mail-form-description">
+            <label for="mail_description">お問い合わせの概要 ●</label> <MTMailPreviewIfFieldError name="mail_description"><span class="mail-error">お問い合わせの概要を選択してください。</span></MTMailPreviewIfFieldError><br />
+            <select name="mail_description" id="mail_description" style="width : 90%;">
+            <MTGetParamList list_name="description_options">
+                <option value="<MTVar name="gp_value">"<MTIf name="mail_description" eq="$gp_value"> selected="selected"</MTIf>><MTVar name="gp_string"></option>
+            </MTGetParamList>
+            </select>
+        </p>
+
+        <p id="mail-form-subject">
+            <label for="mail_subject">お問い合わせの題名 ●</label> <MTMailPreviewIfFieldError name="mail_subject"><span class="mail-error">お問い合わせの題名を入力してください。</span></MTMailPreviewIfFieldError><br />
+            <input id="mail_subject" name="mail_subject" size="30" value="<$MTMailPreviewSubject$>" style="width : 90%;" />
+        </p>
+
+        <p id="mail-form-text">
+            <label for="mail_text">お問い合わせの詳細 ●</label> <MTMailPreviewIfFieldError name="mail_text"><span class="mail-error">お問い合わせの詳細を入力してください。</span></MTMailPreviewIfFieldError><br />
+            <textarea id="mail_text" name="mail_text" rows="15" cols="50" style="width : 90%;"><$MTMailPreviewBody$></textarea>
+        </p>
+
+<MTSetParamList list_name="sex_values">
+男|男|mail_radio0
+女|女|mail_radio1
+</MTSetParamList>
+        <p id="mail-form-sex">
+            <label for="mail_sex">性別</label><br />
+            <MTGetParamList list_name="sex_values">
+            <input type="radio" name="mail_sex" id="<MTVar name="gp_id">" value="<MTVar name="gp_value">"<MTIf name="mail_sex" eq="$gp_value"> checked="checked"</MTIf> /> <MTVar name="gp_string">
+            </MTGetParamList>
+        </p>
+
+        <p id="mail-form-books">
+            弊社をどこでお知りになりましたか（複数選択可）<br />
+            <input type="checkbox" name="mail_tv" id="mail_tv" value="○"<MTIf name="mail_tv"> checked="checked"</MTIf> /> <label for="mail_tv">テレビ</label><br />
+            <input type="checkbox" name="mail_internet" id="mail_internet" value="○"<MTIf name="mail_internet"> checked="checked"</MTIf> /> <label for="mail_internet">インターネット</label><br />
+            <input type="checkbox" name="mail_friends" id="mail_friends" value="○"<MTIf name="mail_friends"> checked="checked"</MTIf> /> <label for="mail_friends">友人・知人の紹介</label><br />
+            <input type="checkbox" name="mail_others" id="mail_others" value="○"<MTIf name="mail_others"> checked="checked"</MTIf> /> <label for="mail_others">その他</label> <input type="text" name="mail_others2" id="mail_others2" size="20" value="<$MTMailPreviewExtParam name="mail_others2"$>" /><br />
+        <p>
+
+        <div id="comments-open-footer">
+        <p id="mail-form-footer">
+            <input type="hidden" name="mail_blog_id" value="<$MTBlogID$>" />
+            <input type="hidden" name="mail_setting" value="<$MTGetVar name="mail_setting">" />
+            <input type="submit" accesskey="v" name="mail_preview" id="mail_preview" value="確認" class="primary button" />
+            <input type="submit" accesskey="s" name="mail_post" id="mail_post" value="送信" class="button" />
+        </p>
+        </div>
+    </form>
+    <p><a href="http://www.h-fj.com/blog/mtplgdoc/mailformv2_2.php">Powered by メールフォームプラグイン V2.30</a><br />Copyright &copy; by <a href="http://www.h-fj.com/blog/">H.Fujimoto</a></p>
+</div>
