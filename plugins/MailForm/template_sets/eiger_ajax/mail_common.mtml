@@ -1,0 +1,29 @@
+<div class="comments-open-content">
+    <form method="post" action="<$MTCGIPath$>plugins/MailForm/mt-mail-form.cgi" name="mail_form" id="mail_form">
+        <p id="mail-form-author">
+            <label for="mail_author"><__trans phrase="Name"></label><br />
+            <input id="mail_author" name="mail_author" size="30" value="<$MTMailPreviewAuthor$>" style="width : 90%;" />
+        </p>
+        <p id="mail-form-email">
+            <label for="mail_email"><__trans phrase="Mail Address"></label><br />
+            <input id="mail_email" name="mail_email" size="30" value="<$MTMailPreviewEMail$>" style="width : 90%;" />
+        </p>
+        <p id="mail-form-subject">
+            <label for="mail_subject"><__trans phrase="Subject"></label><br />
+            <input id="mail_subject" name="mail_subject" size="30" value="<$MTMailPreviewSubject$>" style="width : 90%;" />
+        </p>
+        <p id="mail-form-text">
+            <label for="mail_text"><__trans phrase="Text"></label><br />
+            <textarea id="mail_text" name="mail_text" rows="15" cols="50" style="width : 90%;"><$MTMailPreviewBody$></textarea>
+        </p>
+        <div id="comments-open-footer">
+        <p id="mail-form-footer">
+            <input type="hidden" name="mail_blog_id" value="<$MTBlogID$>" />
+            <input type="hidden" name="mail_setting" value="<$MTGetVar name="mail_setting">" />
+            <input type="button" accesskey="v" name="mail_preview" id="mail_preview" value="<__trans phrase="Confirm">" class="primary button" onclick="return FJAjaxMail.send('preview');" />
+            <input type="button" accesskey="s" name="mail_post" id="mail_post" value="<__trans phrase="Submit">" class="button" onclick="return FJAjaxMail.send('post');" />
+        </p>
+        </div>
+    </form>
+    <p><a href="http://www.h-fj.com/blog/mtplgdoc/mailformv2_2.php">Powered by <__trans phrase="Mail Form Plugin"> V<$mt:MailFormPluginVersion$></a><br />Copyright &copy; by <a href="http://www.h-fj.com/blog/">H.Fujimoto</a></p>
+</div>
