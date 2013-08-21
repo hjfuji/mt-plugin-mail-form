@@ -261,4 +261,10 @@ sub include_mail_form_common {
     return $out;
 }
 
+sub mail_form_plugin_version {
+    my ($ctx, $args) = @_;
+    my $plugin = MT->component('mailform');
+    return $plugin->{version};
+}
+
 1;
