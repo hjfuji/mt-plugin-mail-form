@@ -30,10 +30,18 @@
         <h2 class="comments-open-header"><__trans phrase="Confirm Mail"></h2>
         <div class="comments-open-content">
           <p><__trans phrase="Send mail as below."><br /><__trans phrase="If you modify mail, please use mail form below."></p>
-          <p><__trans phrase="Name">:<br /><$mt:MailPreviewAuthor$></p>
-          <p><__trans phrase="Mail Address">:<br /><$mt:MailPreviewEMail$></p>
-          <p><__trans phrase="Subject">:<br /><$mt:MailPreviewSubject$></p>
-          <p><__trans phrase="Text">:<br /><$mt:MailPreviewBody convert_breaks="1"$></p>
+          <table border="1" style="width : 90%;">
+            <tr><td colspan="2">お名前</td><td><$MTMailPreviewAuthor$></td></tr>
+            <tr><td colspan="2">メールアドレス</td><td><$MTMailPreviewEMail$></td></tr>
+            <tr><td colspan="2">概要</td><td><$MTMailPreviewExtParam name="mail_description"$></td></tr>
+            <tr><td colspan="2">題名</td><td><$MTMailPreviewSubject$></td></tr>
+            <tr><td colspan="2">性別</td><td><$MTMailPreviewExtParam name="mail_sex"$></td></tr>
+            <tr><td rowspan="4">弊社をどこでお知りになりましたか</td><td>テレビ</td><td><$MTMailPreviewExtParam name="mail_tv"$></td></tr>
+            <tr><td>インターネット</td><td><$MTMailPreviewExtParam name="mail_internet"$></td></tr>
+            <tr><td>友人・知人の紹介</td><td><$MTMailPreviewExtParam name="mail_friends"$></td></tr>
+            <tr><td>その他</td><td><$MTMailPreviewExtParam name="mail_others"$><br /><$MTMailPreviewExtParam name="mail_others2"$></td></tr>
+            <tr><td colspan="2">本文</td><td><$MTMailPreviewBody convert_breaks="1"$></td></tr>
+          </table>
         </div>
 
         <h2 class="comments-open-header"><__trans phrase="Send Mail"></h2>
