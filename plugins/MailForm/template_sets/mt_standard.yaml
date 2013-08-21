@@ -20,3 +20,7 @@ sets:
     dir: rainier_full
   - name: Movable Type 5.2/6 Eigerテーマ用
     dir: eiger
+  - name: Movable Type 5.2/6 Eigerテーマ用（Ajax）
+    dir: eiger_ajax
+  - name: Movable Type 5.2/6 Eigerテーマ用（各種機能使用）
+    dir: eiger_full

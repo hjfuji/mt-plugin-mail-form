@@ -2,7 +2,7 @@ package MailForm::Tags;
 
 use strict;
 use MailForm::Setting;
-use MT::Util qw( html_text_transform );
+use MT::Util qw( html_text_transform encode_js );
 
 # MTMailPreviewAuthor tag
 sub mail_preview_author

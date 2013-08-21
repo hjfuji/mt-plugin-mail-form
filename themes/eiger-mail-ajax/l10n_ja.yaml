@@ -1,0 +1,77 @@
+Home: 'ホーム'
+About: 'アバウト'
+Posted on: '投稿日:'
+in: 'カテゴリ:'
+Previous entry: '前の記事'
+Next entry: '次の記事'
+Newer entries: '新しい記事'
+Older entries: '過去の記事'
+Read more: '記事一覧へ'
+Please paste the Zenback script code here: 'ここに Zenback の Script コードは貼り付けてください。'
+
+Index Page: 'インデックスページ'
+JavaScript - Theme: 'Javascript テーマ用'
+Stylesheet for IE (8 or lower): 'スタイルシート (IE8 以下用)'
+Yearly Entry Listing: '年別ブログ記事リスト'
+Main Image: 'メインイメージ'
+Pagination: 'ページネーション'
+Related Contents (Index): '関連コンテンツ (インデックス)'
+Related Contents (Blog): '関連コンテンツ (ブログ)'
+
+for Comments, Trackbacks: 'コメント、トラックバック用'
+Sample Style: 'サンプルスタイル'
+Category Label: 'カテゴリラベルカラー'
+Sample Widget: 'サンプルウィジェット'
+Sample Widget 01: 'サンプルウィジェット 01'
+Sample Widget 02: 'サンプルウィジェット 02'
+Sample Widget 03: 'サンプルウィジェット 03'
+Sample Widget 04: 'サンプルウィジェット 04'
+This is sample widget: 'これはサンプルウィジェットです'
+Advertisement: '広告'
+Banner: 'バナー'
+Link Text: 'リンクテキスト'
+Yearly Archives: '年別アーカイブ'
+Yearly Archives Dropdown: '年別アーカイブ (ドロップダウン)'
+Select a Year...: '年を選択...'
+
+_THEME_DESCRIPTION: 'Eiger は企業サイトのようなブログを作成できる、レスポンシブ Web デザインを採用したテーマです。Media Query (CSS) を利用したマルチデバイス対応に加え、Movable Type の機能を使ってロゴやトップページの画像、ナビゲーションの内容を簡単にカスタマイズできます。'
+
+_ABOUT_PAGE_TITLE: 'アバウトページ'
+_ABOUT_PAGE_BODY: |
+                 <p>このページはアバウトページ (自己紹介や会社概要など、プロフィール用のページ) として利用するウエブページの例です。</p>
+                 <p>作成したウェブページに <code>@ABOUT_PAGE</code> というタグを設定すると、ページのヘッダ、フッタにあるナビゲーションにリンクが追加されます。</p>
+_SAMPLE_PAGE_TITLE: ウェブページの例
+_SAMPLE_PAGE_BODY: |
+                 <p>このページはウェブページの例です。</p>
+                 <p>作成したウェブページに <code>@ADD_TO_SITE_NAV</code> というタグを設定すると、ページのヘッダ、フッタにあるナビゲーションにリンクが追加されます。</p>
+
+Eiger(Ajax And Mail Form included): 'Eiger(Ajaxメールフォーム入り)'
+Eiger(Ajax Mail Form): 'Eiger(Ajaxメールフォーム)'
+Blog Index: 'ブログのインデックスページ'
+Navigation: 'ナビゲーション'
+mail_form:Mail Form: 'mail_form:メールフォーム'
+mail_common:Mail Common: 'mail_common:メールフォーム共通部分'
+mail_preview:Mail Preview: 'mail_preview:送信確認'
+mail_error:Mail Error: 'mail_error:送信エラー'
+mail_post:Mail Post: 'mail_post:送信完了'
+mail_body:Mail Body: 'mail_body:メール本文'
+mail_reply:Mail Reply: 'mail_reply:返信メール'
+Send Mail: メールの送信
+Confirm Mail: メールの確認
+Mail Posted: メール送信完了
+Send mail as below.: 以下の内容でメールを送信します。
+If you modify mail, please use mail form below.: 内容を修正する場合は、この後にあるメールフォームで修正してください。
+Send Mail Error: メール送信エラー
+Error occured as below.: 以下のエラーが発生しました。
+Please modify and re-send mail.: メールを修正して再度送信してください。
+Name: 名前
+Mail Address: メールアドレス
+Subject: 題名
+Text: 本文
+Confirm: 確認
+Submit: 送信
+_POST_MESSAGE: <$mt:MailPreviewAuthor$>様、メールを送信いただき、ありがとうございました。
+_DEAR_MESSAGE: <$mt:MailPreviewAuthor$>様
+_THANKYOU_MESSAGE: 以下のメールをお送りいただきありがとうございました。
+This mail is auto-reply.: ※このメールは自動返信です。
+Mail Form Plugin: メールフォームプラグイン
