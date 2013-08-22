@@ -41,4 +41,27 @@ HERE
     return $out;
 }
 
+sub init_app {
+    my $app = shift;
+    my $plugin = MT->component('mailform');
+    bless $plugin, 'MT::Plugin::MailForm';
+}
+
+package MT::Plugin::MailForm;
+
+use MT::Plugin;
+use MT::Blog;
+use base qw( MT::Plugin );
+
+sub load_config {
+    my ($plugin, $param, $scope) = @_;
+
+    $plugin->SUPER::load_config($param, $scope);
+    return if ($scope eq 'system');
+
+    my $app = MT->instance;
+    my $blog = $app->blog;
+    $param->{fjmf_blog_id} = $blog->id;
+}
+
 1;

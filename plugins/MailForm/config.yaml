@@ -129,6 +129,7 @@ applications:
 callbacks:
   restore: $mailform::MailForm::DoSetting::restore
   cms_post_delete.mailform_setting: $mailform::MailForm::DoSetting::post_delete
+init_app: $mailform::MailForm::Misc::init_app
 upgrade_functions:
   add_author_id_field:
     version_limit: 1.01
