@@ -43,7 +43,7 @@ __PACKAGE__->install_properties({
         blog_id => 1,
         title => 1,
     },
-    child_of => 'MT::Blog',
+    child_of => [ 'MT::Blog', 'MT::Website' ],
     datasource => 'mailform_setting',
     primary_key => 'id',
     class_type => 'mailform_setting',

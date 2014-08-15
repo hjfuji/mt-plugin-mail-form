@@ -610,7 +610,7 @@ sub restore {
     my (%blogs, %authors, %tmpls, @settings);
 
     for my $key (keys %$objects) {
-        if ($key =~ /^MT::Blog#(\d+)$/) {
+        if ($key =~ /^MT::(?:Blog|Website)#(\d+)$/) {
             $blogs{$1} = $objects->{$key}->id;
         }
         elsif ($key =~ /^MT::Author#(\d+)$/) {

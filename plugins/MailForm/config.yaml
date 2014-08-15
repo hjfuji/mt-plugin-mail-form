@@ -14,12 +14,13 @@
 # 2011/05/12 2.30b1 For Movable Type 5.1
 # 2012/07/25 2.30 For Movable Type 5.2
 # 2013/08/04 2.40b1 Some refactoring
+# 2014/08/15 2.41 Bug fix
 #
 # Copyright(c) by H.Fujimoto
 #
 id: mailform
 name: Mail Form
-version: 2.40b1
+version: 2.41
 author_name: <__trans phrase="Hajime Fujimoto">
 author_link: http://www.h-fj.com/blog/
 doc_link: http://www.h-fj.com/blog/mt5plgdoc/mailformv2_3.php
