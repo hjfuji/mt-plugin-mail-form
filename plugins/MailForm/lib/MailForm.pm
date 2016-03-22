@@ -11,6 +11,7 @@
 # 2009/09/25 2.20 Renewal for MT5
 # 2009/12/07 2.20b2 add pre_build_mail callback to sending rmail
 # 2011/05/19 2.30b1 For Movable Type 5.1
+# 2016/03/22 2.43 Fix throttle bug
 #
 # Copyright(c) by H.Fujimoto
 #
@@ -244,13 +245,20 @@ sub post
 
     # throttle check
     if (!$preview && !$iserror) {
-        my $from_ts = epoch2ts(undef, time - THROTTLE_SECONDS);
+        my ($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) = gmtime(time - THROTTLE_SECONDS);
+        $year += 1900;
+        $mon += 1;
+        my $from_ts = sprintf(
+            "%04d%02d%02d%02d%02d%02d",
+            $year, $mon, $mday, $hour, $min, $sec
+        );
         $iter = MT::Log->load_iter({ blog_id => $blog_id,
                                      class => 'mailform',
-                                     created_on => [ $from_ts ] },
-                                   { range => { created_on => 1 }});
+                                     category => 'mail_sent',
+                                     created_on => { '>=' => $from_ts } });
+
         while (my $log = $iter->()) {
-            if ($log->ip == $app->remote_ip && $log->category eq 'mail_sent') {
+            if ($log->ip eq $app->remote_ip && $log->category eq 'mail_sent') {
                 $iserror = 1;
                 $is_throttled = 1;
                 push @errmsg, $plugin->translate('Too many mails have been submitted from you in a short period of time.  Please try again in a short while.');            last;
