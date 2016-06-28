@@ -22,7 +22,7 @@
 #
 id: mailform
 name: Mail Form
-version: 2.43
+version: 2.44
 author_name: <__trans phrase="Hajime Fujimoto">
 author_link: http://www.h-fj.com/blog/
 doc_link: http://www.h-fj.com/blog/mt5plgdoc/mailformv2_3.php
@@ -55,6 +55,7 @@ tags:
     MailIfSpam?: $mailform::MailForm::Tags::mail_if_spam
     MailIfSystemTemplate?: $mailform::MailForm::Tags::mail_if_system_template
     MailBodyContainer: $mailform::MailForm::Tags::mail_body_container
+    MailURL: $mailform::MailForm::Tags::mail_url
 object_types:
   mailform_setting: MailForm::Setting
 applications:
@@ -99,6 +100,7 @@ applications:
       fjmf_rebuild: $mailform::MailForm::DoSetting::rebuild
       fjmf_install_template_setup: $mailform::MailForm::DoSetting::install_template_setup
       fjmf_install_template: $mailform::MailForm::DoSetting::install_template
+      fjot_load_mail_forms: $mailform::MailForm::ObjectTree::load_mail_forms
     list_actions:
       mailform_setting:
         delete:
@@ -108,6 +110,8 @@ applications:
           order: 110
           js_message:  delete
           button: 1
+    callbacks:
+      template_param.edit_tree: $mailform::MailForm::ObjectTree::edit_tree
   mailform:
     handler: MailForm
     script: >
@@ -179,3 +183,17 @@ list_properties:
       base: __virtual.author_name
       order: 500
       display: optional
+tree_sources:
+  mailform:
+    order: 1100
+    label: Mail Form
+    load:
+      class: mailform_setting
+      load: fjot_load_mail_forms
+      show_blog_name: 1
+    multi_blog: 1
+    permission: administer_blog
+tree_resources: $mailform::MailForm::ObjectTree::resources
+tree_tags: $mailform::MailForm::Tags::tree_tags
+tree_stash_classes:
+  mailform_setting: mail_setting

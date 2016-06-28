@@ -267,4 +267,22 @@ sub mail_form_plugin_version {
     return $plugin->{version};
 }
 
+# MTMailURL tag
+sub mail_url {
+    my ($ctx, $args) = @_;
+    my $plugin = MT->component('mailform');
+
+    my $setting = $ctx->stash('mail_setting');
+    my $blog = $ctx->stash('blog');
+    if (!$setting) {
+        my $setting_title = $ctx->var('mail_setting');
+        $setting = MailForm::Setting->load({ title => $setting_title, blog_id => $blog->id })
+            or return $ctx->error($plugin->translate('Mail form setting load error'));
+        $ctx->stash('mail_setting', $setting);
+    }
+    my $form_tmpl = MT->model('template')->load($setting->form_template_id);
+    local $ctx->{__stash}{index} = $form_tmpl;
+    return $ctx->tag('indexlink', $args);
+}
+
 1;
