@@ -267,8 +267,8 @@ sub mail_form_plugin_version {
     return $plugin->{version};
 }
 
-# MTMailURL tag
-sub mail_url {
+# MTMailFormURL tag
+sub mail_form_url {
     my ($ctx, $args) = @_;
     my $plugin = MT->component('mailform');
 
@@ -283,6 +283,38 @@ sub mail_url {
     my $form_tmpl = MT->model('template')->load($setting->form_template_id);
     local $ctx->{__stash}{index} = $form_tmpl;
     return $ctx->tag('indexlink', $args);
+}
+
+# MTMailFormTitle tag
+sub mail_form_title {
+    my ($ctx, $args) = @_;
+    my $plugin = MT->component('mailform');
+
+    my $setting = $ctx->stash('mail_setting');
+    my $blog = $ctx->stash('blog');
+    if (!$setting) {
+        my $setting_title = $ctx->var('mail_setting');
+        $setting = MailForm::Setting->load({ title => $setting_title, blog_id => $blog->id })
+            or return $ctx->error($plugin->translate('Mail form setting load error'));
+    }
+    return $setting->title || '';
+}
+
+sub tree_tags {
+    return {
+        mailform_setting => {
+            label => sub {
+                my ($ctx, $args) = @_;
+                return $ctx->tag('mailformtitle', $args);
+            },
+            link => sub {
+                my ($ctx, $args) = @_;
+                return $ctx->tag('mailformurl', $args);
+            },
+            exclude => sub { return 0; },
+            blog_children => 1
+        }
+    };
 }
 
 1;

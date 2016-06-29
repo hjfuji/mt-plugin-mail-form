@@ -41,6 +41,8 @@ tags:
     MailFormAjaxJS: $mailform::MailForm::Tags::mail_form_ajax_js
     IncludeMailFormCommon: $mailform::MailForm::Tags::include_mail_form_common
     MailFormPluginVersion: $mailform::MailForm::Tags::mail_form_plugin_version
+    MailFormURL: $mailform::MailForm::Tags::mail_form_url
+    MailFormTitle: $mailform::MailForm::Tags::mail_form_title
   block:
     MailPreviewIfError?: $mailform::MailForm::Tags::mail_preview_if_error
     MailPreviewIfInputError?: $mailform::MailForm::Tags::mail_preview_if_input_error
@@ -55,7 +57,6 @@ tags:
     MailIfSpam?: $mailform::MailForm::Tags::mail_if_spam
     MailIfSystemTemplate?: $mailform::MailForm::Tags::mail_if_system_template
     MailBodyContainer: $mailform::MailForm::Tags::mail_body_container
-    MailURL: $mailform::MailForm::Tags::mail_url
 object_types:
   mailform_setting: MailForm::Setting
 applications:
