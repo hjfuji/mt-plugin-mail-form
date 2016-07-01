@@ -109,7 +109,11 @@ sub edit_tree {
     my $elements = $tmpl->getElementsByTagName('include');
     my $head_node;
     for my $element (@$elements) {
-        if ($element->attributes->{name} eq 'include/header.tmpl') {
+        if (
+            $element->attributes->{name} eq 'include/header.tmpl'
+            ||
+            $element->attributes->{name} eq 'dialog/header.tmpl'
+        ) {
             $head_node = $element;
             last;
         }

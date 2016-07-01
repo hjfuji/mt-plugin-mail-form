@@ -17,6 +17,7 @@
 # 2014/08/15 2.41 Bug fix
 # 2014/09/10 2.42 Bug fix for MT6.0.4 (strict YAML)
 # 2016/03/22 2.43 Bug fix of throttle
+# 2016/07/01 2.44 ObjectTree Plugin Support
 #
 # Copyright(c) by H.Fujimoto
 #
